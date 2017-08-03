@@ -1,0 +1,36 @@
+<div class="login_wrapper">
+  <div class="animate form login_form">
+    <section class="login_content">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+       <h1>Novo cadastro</h1>
+
+        <div>
+          <%= f.email_field :email, class: "form-control", placeholder: "E-mail", autofocus: true %>
+        </div>
+        <div>
+          <% if @minimum_password_length %>
+          <em>(Mínimo <%= @minimum_password_length %> caractéres)</em>
+          <% end %><br />
+          <%= f.password_field :password, class: "form-control", placeholder: "Senha", autocomplete: "off" %>
+        </div>
+        <div>
+          <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmação de senha", autocomplete: "off" %>
+        </div>
+
+        <div>
+          <%= f.submit "Cadastrar", class: "btn btn-default submit" %>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="separator">
+          <p class="change_link">Já tem cadastro?
+              <%= link_to "Faça o login.", new_session_path(resource_name), class:"to_register" %>
+          </p>
+          <div class="clearfix"></div>
+          <br />
+        </div>
+      <% end %>
+    </section>
+  </div>
+</div>
