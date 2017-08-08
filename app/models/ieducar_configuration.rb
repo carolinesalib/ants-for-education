@@ -1,0 +1,2 @@
+class IeducarConfiguration < ApplicationRecord
+end

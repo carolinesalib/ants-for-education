@@ -1,0 +1,2 @@
+module IeducarConfigurationsHelper
+end
