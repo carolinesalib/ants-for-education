@@ -14,7 +14,7 @@
             </div>
             <div class="x_content">
                 <br>
-                <%= form_for(@configuration, url: edit_ieducar_configuration_path, html: { class:"form-horizontal form-label-left" } ) do |f| %>
+                <%= form_for @configuration, url: ieducar_configuration_path, method: :patch, html: { class:"form-horizontal form-label-left" }  do |f| %>
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Url <span class="required">*</span>
                     </label>

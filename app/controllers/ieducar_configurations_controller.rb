@@ -4,9 +4,11 @@ class IeducarConfigurationsController < ApplicationController
   end
 
   def update
-    if @configuration.update(params_configuration)
-      redirect_to backoffice_categories_path,
-                  notice: "Atualizado com sucesso"
+    @configuration = IeducarConfiguration.find(params[:id])
+    @configuration.attributes = permitted_attributes
+
+    if @configuration.save
+      redirect_to edit_ieducar_configuration_path
     else
       render :edit
     end
@@ -14,7 +16,7 @@ class IeducarConfigurationsController < ApplicationController
 
   private
 
-  def params_configuration
+  def permitted_attributes
     params.require(:ieducar_configuration).permit(:url)
   end
 end
