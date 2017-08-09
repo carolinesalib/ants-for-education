@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Escolas</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Código i-Educar</th>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @schools.each do |school| %>
+            <tr>
+              <th scope="row"><%= school.id %></th>
+              <td><%= school.ieducar_code %></td>
+              <td><%= school.name %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
