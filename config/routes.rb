@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sync/index'
+
   get 'schools/index'
 
   devise_for :users
