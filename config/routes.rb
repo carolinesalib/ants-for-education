@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'series/index'
+
   get 'courses/index'
 
   get 'sync/index'
