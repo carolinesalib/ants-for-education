@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'classrooms/index'
 
   get 'series/index'
 
@@ -16,4 +15,5 @@ Rails.application.routes.draw do
   get 'welcome/index'
 
   resources :ieducar_configurations, only: [:edit, :update]
+  resources :classrooms, only: [:index, :show]
 end

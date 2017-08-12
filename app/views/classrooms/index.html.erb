@@ -6,7 +6,6 @@
         <div class="clearfix"></div>
       </div>
       <div class="x_content">
-
         <table class="table">
           <thead>
             <tr>
@@ -21,14 +20,14 @@
           </thead>
           <tbody>
             <% @classes.each do |classroom| %>
-            <tr>
+            <tr class='clickable-row' data-href='<%= classroom_path(classroom.id) %>'>
               <th scope="row"><%= classroom.id %></th>
               <td><%= classroom.ieducar_code %></td>
               <td><%= classroom.name %></td>
-              <td><%= classroom.start_at.strftime("%I:%M") %></td>
-              <td><%= classroom.stop_at.strftime("%I:%M") %></td>
-              <td><%= classroom.interval_start.strftime("%I:%M") %></td>
-              <td><%= classroom.interval_stop.strftime("%I:%M") %></td>
+              <td><%= classroom.start_at_humanize %></td>
+              <td><%= classroom.stop_at_humanize %></td>
+              <td><%= classroom.interval_start_humanize %></td>
+              <td><%= classroom.interval_stop_humanize %></td>
             </tr>
             <% end %>
           </tbody>

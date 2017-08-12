@@ -1,0 +1,91 @@
+<div class="row">
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Detalhes da turma</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <form class="form-horizontal form-label-left">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Código i-Educar</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.ieducar_code %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Turma</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.name %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Horário inicial</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.start_at_humanize %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Horário final</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.stop_at_humanize %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Início intervalo</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.interval_start_humanize %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Fim intervalo</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @classroom.interval_stop_humanize %>">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Disciplinas da turma</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Código i-Educar</th>
+              <th>Nome</th>
+              <th>Carga horária</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2</td>
+              <td>Português</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Matemática</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>História</td>
+              <td>20</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
