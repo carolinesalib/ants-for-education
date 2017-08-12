@@ -1,2 +1,7 @@
 @import "gentelella";
 @import "gentelella-custom";
+
+.clickable-row:hover {
+  cursor: pointer;
+  color: #1ABB9C;
+}
