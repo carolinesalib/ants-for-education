@@ -67,21 +67,13 @@
             </tr>
           </thead>
           <tbody>
+            <% @classroom.classroom_disciplines.each do |discipline| %>
             <tr>
-              <td>2</td>
-              <td>Português</td>
-              <td>20</td>
+              <td><%= discipline.ieducar_code %></td>
+              <td><%= discipline.name %></td>
+              <td><%= discipline.course_load_humanize %></td>
             </tr>
-            <tr>
-              <td>6</td>
-              <td>Matemática</td>
-              <td>20</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>História</td>
-              <td>20</td>
-            </tr>
+            <% end %>
           </tbody>
         </table>
       </div>

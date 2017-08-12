@@ -1,4 +1,6 @@
 class Classroom < ApplicationRecord
+  has_many :classroom_disciplines
+
   def start_at_humanize
     start_at.strftime('%I:%M')
   end
