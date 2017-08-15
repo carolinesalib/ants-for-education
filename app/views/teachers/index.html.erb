@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Professores</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Código i-Educar</th>
+              <th>Nome</th>
+              <th>Carga horária</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @teachers.each do |teacher| %>
+            <tr class='clickable-row' data-href='<%= teacher_path(teacher.id) %>'>
+              <th scope="row"><%= teacher.id %></th>
+              <td><%= teacher.ieducar_code %></td>
+              <td><%= teacher.name %></td>
+              <td><%= teacher.course_load_humanize %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
