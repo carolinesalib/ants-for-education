@@ -1,2 +1,91 @@
-<h1>Teachers#show</h1>
-<p>Find me in app/views/teachers/show.html.erb</p>
+<div class="row">
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Detalhes do professor</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <br />
+        <form class="form-horizontal form-label-left">
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Código i-Educar</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @teacher.ieducar_code %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Nome</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @teacher.name %>">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Carga horária</label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @teacher.course_load_humanize %>">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Disciplinas do professor</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Código i-Educar</th>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @teacher.teacher_disciplines.each do |discipline| %>
+            <tr>
+              <td><%= discipline.ieducar_code %></td>
+              <td><%= discipline.name %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Escolas alocadas</h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Código i-Educar</th>
+              <th>Nome</th>
+              <th>Carga horária alocada</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @teacher.teacher_schools.each do |school| %>
+            <tr>
+              <td><%= school.ieducar_code %></td>
+              <td><%= school.name %></td>
+              <td><%= school.course_load_humanize %></td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
