@@ -23,7 +23,7 @@ module AntsForEducation
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths += %W(
-      #{config.root}/business
+      #{config.root}/services
     )
 
   end
