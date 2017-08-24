@@ -3,7 +3,7 @@ class CreateClassroomDisciplines < ActiveRecord::Migration[5.0]
     create_table :classroom_disciplines do |t|
       t.integer :ieducar_code
       t.string :name
-      t.time :course_load
+      t.integer :course_load
       t.references :classroom, foreign_key: true
 
       t.timestamps
