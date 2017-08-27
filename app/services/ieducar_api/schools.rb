@@ -1,20 +1,11 @@
 module IeducarApi
-  class Schools
-    def url
-      IeducarConfiguration.first[:url]
-    end
-
-    def access_key
-      '&access_key=kXol8EPSFgd1WsXSqlaUMMa2XYY23D'
-    end
-
-    def resource_url
-      url + '/module/Api/Escola?&resource=escolas&oper=get' + access_key
-    end
-
-    def api_fetch
-      resource = RestClient.get resource_url
-      JSON.parse(resource)["escolas"]
+  class Schools < Api
+    def api_fetch(params = {})
+      params = {
+        path: "module/Api/Escola",
+        resource: "escolas"
+      }
+      super
     end
 
     def sync!
