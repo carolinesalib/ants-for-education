@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'series/index'
+  get 'series/sync'
 
   get 'courses/index'
   get 'courses/sync'
