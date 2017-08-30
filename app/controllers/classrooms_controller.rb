@@ -6,4 +6,10 @@ class ClassroomsController < ApplicationController
   def show
     @classroom = Classroom.find(params[:id])
   end
+
+  def sync
+    IeducarApi::Classrooms.new.sync!
+
+    redirect_to classrooms_path
+  end
 end

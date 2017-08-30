@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get 'welcome/index'
 
+  get 'classrooms/sync'
+
   resources :ieducar_configurations, only: [:edit, :update]
   resources :classrooms, only: [:index, :show]
   resources :teachers, only: [:index, :show]
