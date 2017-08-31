@@ -16,8 +16,8 @@ module IeducarApi
 
     def update_records(results)
       results.each do |result|
-        if serie = Classroom.find_by(ieducar_code: result['cod_turma'])
-          serie.update(
+        if classroom = Classroom.find_by(ieducar_code: result['cod_turma'])
+          classroom.update(
             name: result['nm_turma'],
             start_at: result['hora_inicial'],
             stop_at: result['hora_final'],

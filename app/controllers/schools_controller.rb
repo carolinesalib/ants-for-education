@@ -6,6 +6,6 @@ class SchoolsController < ApplicationController
   def sync
     IeducarApi::Schools.new.sync!
 
-    redirect_to schools_index_path
+    redirect_to schools_path
   end
 end

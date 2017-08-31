@@ -7,8 +7,6 @@ Rails.application.routes.draw do
 
   get 'sync/index'
 
-  get 'schools/index'
-  get 'schools/sync'
 
   devise_for :users
 
@@ -21,4 +19,11 @@ Rails.application.routes.draw do
   resources :ieducar_configurations, only: [:edit, :update]
   resources :classrooms, only: [:index, :show]
   resources :teachers, only: [:index, :show]
+
+  resources :schools, only: [ :none ] do
+    collection do
+      get 'index'
+      get 'sync'
+    end
+  end
 end

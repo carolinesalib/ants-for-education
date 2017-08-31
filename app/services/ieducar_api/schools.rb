@@ -26,6 +26,5 @@ module IeducarApi
         end
       end
     end
-
   end
 end
