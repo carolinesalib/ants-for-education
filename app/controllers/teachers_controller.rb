@@ -9,6 +9,7 @@ class TeachersController < ApplicationController
 
   def sync
     IeducarApi::Teachers.new.sync!
+    IeducarApi::TeachersDisciplines.new.sync!
 
     redirect_to teachers_path
   end
