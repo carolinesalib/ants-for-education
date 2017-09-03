@@ -3,6 +3,6 @@ class Teacher < ApplicationRecord
   has_many :teacher_schools
 
   def course_load_humanize
-    course_load.strftime('%I:%M')
+    TimeConverter.min2hour(course_load)
   end
 end
