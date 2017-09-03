@@ -69,7 +69,6 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Código i-Educar</th>
               <th>Nome</th>
               <th>Período</th>
               <th>Carga horária alocada</th>
@@ -78,9 +77,8 @@
           <tbody>
             <% @teacher.teacher_schools.each do |school| %>
             <tr>
-              <td><%= school.ieducar_code %></td>
-              <td><%= school.name %></td>
-              <td><%= school.period %></td>
+              <td><%= school.school.name %></td>
+              <td><%= school.period_humanize %></td>
               <td><%= school.course_load_humanize %></td>
             </tr>
             <% end %>
