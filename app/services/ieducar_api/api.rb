@@ -5,7 +5,14 @@ module IeducarApi
     end
 
     def resource_url(params)
-      "#{url}/#{params[:path]}?&resource=#{params[:resource]}&oper=get&access_key=#{ACCESS_KEY}"
+      args = ""
+      if params[:args]
+        params[:args].each do |arg|
+          args += "&#{arg[0]}=#{arg[1]}"
+        end
+      end
+
+      "#{url}/#{params[:path]}?&resource=#{params[:resource]}&oper=get&access_key=#{ACCESS_KEY}#{args}"
     end
 
     def api_fetch(params)
