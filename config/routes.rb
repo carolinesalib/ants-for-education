@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   get 'classrooms/sync'
 
   resources :ieducar_configurations, only: [:edit, :update]
+  resources :class_schedule, only: [:edit, :update]
   resources :classrooms, only: [:index, :show]
 
   resources :schools, only: [ :none ] do
