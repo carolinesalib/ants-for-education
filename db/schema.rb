@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170903203530) do
+ActiveRecord::Schema.define(version: 20170905220832) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "class_schedule_steps", force: :cascade do |t|
+    t.integer  "class_schedules_id"
+    t.integer  "sequence"
+    t.time     "start_at"
+    t.time     "end_at"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.index ["class_schedules_id"], name: "index_class_schedule_steps_on_class_schedules_id", using: :btree
+  end
+
+  create_table "class_schedules", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "classroom_disciplines", force: :cascade do |t|
     t.integer  "ieducar_code"

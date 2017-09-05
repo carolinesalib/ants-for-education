@@ -1,0 +1,2 @@
+class ClassScheduleStep < ApplicationRecord
+end

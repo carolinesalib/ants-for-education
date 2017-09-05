@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'class_schedule/edit'
+
   devise_for :users
 
   root 'welcome#index'

@@ -1,0 +1,2 @@
+class ClassSchedule < ApplicationRecord
+end
