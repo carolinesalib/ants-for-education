@@ -16,13 +16,13 @@ ActiveRecord::Schema.define(version: 20170905220832) do
   enable_extension "plpgsql"
 
   create_table "class_schedule_steps", force: :cascade do |t|
-    t.integer  "class_schedules_id"
+    t.integer  "class_schedule_id"
     t.integer  "sequence"
     t.time     "start_at"
     t.time     "end_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.index ["class_schedules_id"], name: "index_class_schedule_steps_on_class_schedules_id", using: :btree
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["class_schedule_id"], name: "index_class_schedule_steps_on_class_schedule_id", using: :btree
   end
 
   create_table "class_schedules", force: :cascade do |t|
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20170905220832) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "class_schedule_steps", "class_schedules"
   add_foreign_key "classroom_disciplines", "classrooms"
   add_foreign_key "teacher_disciplines", "teachers"
   add_foreign_key "teacher_schools", "schools"
