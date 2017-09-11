@@ -8,21 +8,12 @@
       <div class="x_content">
         <br>
         <%= form_for @class_schedule, url: class_schedule_path, method: :patch, html: { class:"form-horizontal form-label-left" }  do |f| %>
+          <%= f.fields_for :class_schedule_steps do |steps_fields| %>
+            <%= render partial: "class_schedule_step_fields", locals: { f: steps_fields } %>
+          <% end %>
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Horário:</label>
-            <div class="col-md-2 col-sm-2 col-xs-12">
-              <input type="text" class="form-control" placeholder="Etapa">
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-12">
-              <input type="text" class="form-control" placeholder="Horário início">
-            </div>
-            <div class="col-md-2 col-sm-2 col-xs-12">
-              <input type="text" class="form-control" placeholder="Horário fim">
-            </div>
-
-            <div class="col-md-2 col-sm-2 col-xs-12">
-              <button type="button" class="btn btn-success"><i class="fa fa-plus"></i></button>
-              <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+              <%= link_to_add_association('<i class="fa fa-plus"></i>  Adicionar novo horário'.html_safe, f, :class_schedule_steps, class: "btn btn-success") %>
             </div>
           </div>
           <div class="ln_solid"></div>
