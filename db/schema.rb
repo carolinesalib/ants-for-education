@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20170905220832) do
   create_table "class_schedule_steps", force: :cascade do |t|
     t.integer  "class_schedule_id"
     t.integer  "sequence"
-    t.time     "start_at"
-    t.time     "end_at"
+    t.integer  "start_at"
+    t.integer  "end_at"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
     t.index ["class_schedule_id"], name: "index_class_schedule_steps_on_class_schedule_id", using: :btree

@@ -3,8 +3,8 @@ class CreateClassScheduleSteps < ActiveRecord::Migration[5.0]
     create_table :class_schedule_steps do |t|
       t.references :class_schedule, foreign_key: true
       t.integer :sequence
-      t.time :start_at
-      t.time :end_at
+      t.integer :start_at
+      t.integer :end_at
 
       t.timestamps
     end
