@@ -15,6 +15,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require cocoon
+//= require jquery.mask
 //= require turbolinks
 //= require_tree .
 
