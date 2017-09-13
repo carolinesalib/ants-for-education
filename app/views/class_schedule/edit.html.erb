@@ -11,7 +11,7 @@
       <div class="x_content">
         <br>
         <%= form_for @class_schedule, url: class_schedule_path, method: :patch, html: { class:"form-horizontal form-label-left" }  do |f| %>
-          <%= f.fields_for :class_schedule_steps do |steps_fields| %>
+          <%= f.fields_for :class_schedule_steps, f.object.class_schedule_steps.order(:sequence) do |steps_fields| %>
             <%= render partial: "class_schedule_step_fields", locals: { f: steps_fields } %>
           <% end %>
           <div class="form-group">
