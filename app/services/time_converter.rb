@@ -1,6 +1,13 @@
 class TimeConverter
-  def self.min2hour(min)
-    hours = min.to_f/60
+  attr_accessor :min, :text
+
+  def initialize(min = nil, text = nil)
+    @min = min
+    @text = text
+  end
+
+  def to_s
+    hours = @min.to_f/60
     hours = hours.to_s.split '.'
     minutes = hours.last
     hours = hours.first
@@ -10,10 +17,10 @@ class TimeConverter
     "#{hours}:#{minutes}"
   end
 
-  def self.hour2min(text_hour)
-    text_hour = text_hour.split ':'
-    hours = text_hour.first.to_i
-    minutes = text_hour.last.to_i
+  def to_min
+    time = @text.split ':'
+    hours = time.first.to_i
+    minutes = time.last.to_i
     hours*60 + minutes
   end
 end
