@@ -20,7 +20,13 @@ class TimeConverter
   def to_min
     time = @text.split ':'
     hours = time.first.to_i
-    minutes = time.last.to_i
+
+    if time.length > 1
+      minutes = time.last.to_i
+    else
+      minutes = 0
+    end
+
     hours*60 + minutes
   end
 end
