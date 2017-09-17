@@ -1,5 +1,5 @@
 class Serie < ApplicationRecord
-  def course_load_humanize
-    TimeConverter.min2hour(course_load)
+  def course_load
+    TimeConverter.new(super).to_s
   end
 end
