@@ -39,6 +39,7 @@ gem 'devise'
 gem 'rest-client'
 gem 'cocoon'
 gem 'jquery_mask_rails', '~> 0.1.0'
+gem 'composite_primary_keys'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

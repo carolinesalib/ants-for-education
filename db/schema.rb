@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905220832) do
+ActiveRecord::Schema.define(version: 20170927222858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,10 +59,31 @@ ActiveRecord::Schema.define(version: 20170905220832) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "disciplines", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "ieducar_code"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "ieducar_configurations", force: :cascade do |t|
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "schedules", force: :cascade do |t|
+    t.integer  "classroom_id"
+    t.integer  "teacher_id"
+    t.integer  "class_schedule_id"
+    t.integer  "discipline_id"
+    t.integer  "step"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["class_schedule_id"], name: "index_schedules_on_class_schedule_id", using: :btree
+    t.index ["classroom_id"], name: "index_schedules_on_classroom_id", using: :btree
+    t.index ["discipline_id"], name: "index_schedules_on_discipline_id", using: :btree
+    t.index ["teacher_id"], name: "index_schedules_on_teacher_id", using: :btree
   end
 
   create_table "schools", force: :cascade do |t|
@@ -129,6 +150,10 @@ ActiveRecord::Schema.define(version: 20170905220832) do
 
   add_foreign_key "class_schedule_steps", "class_schedules"
   add_foreign_key "classroom_disciplines", "classrooms"
+  add_foreign_key "schedules", "class_schedules"
+  add_foreign_key "schedules", "classrooms"
+  add_foreign_key "schedules", "disciplines"
+  add_foreign_key "schedules", "teachers"
   add_foreign_key "teacher_disciplines", "teachers"
   add_foreign_key "teacher_schools", "schools"
   add_foreign_key "teacher_schools", "teachers"
