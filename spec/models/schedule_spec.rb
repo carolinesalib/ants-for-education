@@ -5,21 +5,21 @@ RSpec.describe Schedule, type: :model do
     @classroom = Classroom.create(name: 'Class A')
     @teacher = Teacher.create(name: 'Robson')
     @class_schedule = ClassSchedule.create(name: 'Default')
-    @class_schedule_step = ClassScheduleStep.create(class_schedule: @class_schedule, sequence: 1)
+    @class_schedule_step = ClassScheduleStep.create(class_schedule: @class_schedule, step: 1)
     @discipline = Discipline.create(name: 'Math')
 
     @schedule_1 = Schedule.new(
       classroom: @classroom,
       teacher: @teacher,
       class_schedule: @class_schedule,
-      step: @class_schedule_step.sequence,
+      step: @class_schedule_step.step,
       discipline: @discipline)
 
     @schedule_2 = Schedule.new(
       classroom: @classroom,
       teacher: @teacher,
       class_schedule: @class_schedule,
-      step: @class_schedule_step.sequence,
+      step: @class_schedule_step.step,
       discipline: @discipline)
 
     expect(@schedule_1.save).to be_truthy

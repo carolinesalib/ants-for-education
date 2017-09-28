@@ -17,7 +17,7 @@ class ClassScheduleController < ApplicationController
 
   def permitted_attributes
     params.require(:class_schedule).permit(
-      class_schedule_steps_attributes: [:id, :sequence, :start_at, :end_at, :_destroy]
+      class_schedule_steps_attributes: [:id, :step, :start_at, :end_at, :_destroy]
     )
   end
 end
