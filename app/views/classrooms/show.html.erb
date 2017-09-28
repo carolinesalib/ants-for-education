@@ -67,11 +67,11 @@
             </tr>
           </thead>
           <tbody>
-            <% @classroom.classroom_disciplines.each do |discipline| %>
+            <% @classroom.classroom_disciplines.each do |classroom_discipline| %>
             <tr>
-              <td><%= discipline.ieducar_code %></td>
-              <td><%= discipline.name %></td>
-              <td><%= discipline.course_load_humanize %></td>
+              <td><%= classroom_discipline.discipline.ieducar_code %></td>
+              <td><%= classroom_discipline.discipline.name %></td>
+              <td><%= classroom_discipline.course_load %></td>
             </tr>
             <% end %>
           </tbody>

@@ -23,14 +23,23 @@ module IeducarApi
         classroom = Classroom.find_by(ieducar_code: result['cod_turma'].to_i)
         if classroom
           ClassroomDiscipline.create!(
-            ieducar_code: result['id'],
-            name: result['nome'],
-            classroom_id: classroom.id,
+            discipline: update_discipline(result['nome'], result['id']),
+            classroom: classroom,
             course_load: result['carga_horaria']
           )
         end
       end
     end
 
+    def update_discipline(name, ieducar_code)
+      discipline = Discipline.find_by(ieducar_code: ieducar_code)
+      unless discipline
+        discipline = Discipline.create(
+          ieducar_code: ieducar_code,
+          name: name
+        )
+      end
+      discipline
+    end
   end
 end

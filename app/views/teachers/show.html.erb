@@ -24,7 +24,7 @@
           <div class="form-group">
             <label class="control-label col-md-3 col-sm-3 col-xs-12">Carga horária</label>
             <div class="col-md-6 col-sm-6 col-xs-12">
-              <input type="text" class="form-control" disabled="disabled" value="<%= @teacher.course_load_humanize %>">
+              <input type="text" class="form-control" disabled="disabled" value="<%= @teacher.course_load %>">
             </div>
           </div>
         </form>
@@ -47,10 +47,10 @@
             </tr>
           </thead>
           <tbody>
-            <% @teacher.teacher_disciplines.each do |discipline| %>
+            <% @teacher.teacher_disciplines.each do |teacher_discipline| %>
             <tr>
-              <td><%= discipline.ieducar_code %></td>
-              <td><%= discipline.name %></td>
+              <td><%= teacher_discipline.discipline.ieducar_code %></td>
+              <td><%= teacher_discipline.discipline.name %></td>
             </tr>
             <% end %>
           </tbody>
@@ -79,7 +79,7 @@
             <tr>
               <td><%= school.school.name %></td>
               <td><%= school.period_humanize %></td>
-              <td><%= school.course_load_humanize %></td>
+              <td><%= school.course_load %></td>
             </tr>
             <% end %>
           </tbody>

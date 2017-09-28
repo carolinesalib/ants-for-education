@@ -4,8 +4,8 @@ class TeacherSchool < ApplicationRecord
 
   enum period: { morning: 1 , affternoon: 2, nightly: 3 }
 
-  def course_load_humanize
-    TimeConverter.min2hour(course_load)
+  def course_load
+    TimeConverter.new(super).to_s
   end
 
   def period_humanize

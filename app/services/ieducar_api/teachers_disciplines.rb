@@ -23,13 +23,22 @@ module IeducarApi
         teacher = Teacher.find_by(ieducar_code: result['ref_cod_servidor'].to_i)
         if teacher
           TeacherDiscipline.create!(
-            ieducar_code: result['ref_cod_disciplina'],
-            name: result['nome'],
-            teacher_id: teacher.id
+            discipline: update_discipline(result['nome'], result['ref_cod_disciplina']),
+            teacher: teacher
           )
         end
       end
     end
 
+    def update_discipline(name, ieducar_code)
+      discipline = Discipline.find_by(ieducar_code: ieducar_code)
+      unless discipline
+        discipline = Discipline.create(
+          ieducar_code: ieducar_code,
+          name: name
+        )
+      end
+      discipline
+    end
   end
 end
