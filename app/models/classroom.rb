@@ -1,5 +1,8 @@
 class Classroom < ApplicationRecord
   has_many :classroom_disciplines
+  belongs_to :serie
+  belongs_to :course
+  belongs_to :school
 
   def start_at_humanize
     start_at.strftime('%I:%M') if start_at

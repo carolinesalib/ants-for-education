@@ -30,9 +30,9 @@ module IeducarApi
             interval_start: result['hora_inicio_intervalo'],
             interval_stop: result['hora_fim_intervalo'],
             year: result['ano'].to_i,
-            school_id: school,
-            course_id: course,
-            serie_id: serie
+            school_id: school.id,
+            course_id: course.id,
+            serie_id: serie.id
           )
         elsif result['nm_turma'].present?
           Classroom.create(
@@ -43,9 +43,9 @@ module IeducarApi
             interval_start: result['hora_inicio_intervalo'],
             interval_stop: result['hora_fim_intervalo'],
             year: result['ano'].to_i,
-            school_id: school,
-            course_id: course,
-            serie_id: serie
+            school_id: school.id,
+            course_id: course.id,
+            serie_id: serie.id
           )
         end
       end

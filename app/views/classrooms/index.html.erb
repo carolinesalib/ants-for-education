@@ -24,6 +24,10 @@
             <tr>
               <th>#</th>
               <th>Código i-Educar</th>
+              <th>Ano</th>
+              <th>Escola</th>
+              <th>Série</th>
+              <th>Curso</th>
               <th>Nome</th>
               <th>Hora inicial</th>
               <th>Hora final</th>
@@ -36,6 +40,10 @@
             <tr class='clickable-row' data-href='<%= classroom_path(classroom.id) %>'>
               <th scope="row"><%= classroom.id %></th>
               <td><%= classroom.ieducar_code %></td>
+              <td><%= classroom.year %></td>
+              <td><%= classroom.school.name %></td>
+              <td><%= classroom.course.name %></td>
+              <td><%= classroom.serie.name %></td>
               <td><%= classroom.name %></td>
               <td><%= classroom.start_at_humanize %></td>
               <td><%= classroom.stop_at_humanize %></td>
