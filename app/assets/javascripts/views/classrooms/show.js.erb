@@ -9,14 +9,7 @@ $(function() {
         credits: this.value
       },
       function() {
-        console.log('Alterado com sucesso');
-
-          new PNotify({
-              title: 'Regular Success',
-              text: 'That thing that you were trying to do worked!',
-              type: 'success',
-              styling: 'bootstrap3'
-          });
+        alert('Alterado com sucesso');
       }
     ).fail(function() {
         alert('Algo deu errado');
