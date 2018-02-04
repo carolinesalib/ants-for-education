@@ -1,0 +1,25 @@
+$(function() {
+  <% self.class.include Rails.application.routes.url_helpers %>
+
+  $('.form-credits').on( "change", function() {
+    $.post(
+      "<%= edit_disciplines_classrooms_path %>",
+      {
+        id: this.id,
+        credits: this.value
+      },
+      function() {
+        console.log('Alterado com sucesso');
+
+          new PNotify({
+              title: 'Regular Success',
+              text: 'That thing that you were trying to do worked!',
+              type: 'success',
+              styling: 'bootstrap3'
+          });
+      }
+    ).fail(function() {
+        alert('Algo deu errado');
+    });
+  });
+});

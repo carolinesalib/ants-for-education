@@ -74,7 +74,6 @@
     </div>
   </div>
 
-
   <div class="col-md-12 col-sm-12 col-xs-12">
     <div class="x_panel">
       <div class="x_title">
@@ -85,9 +84,10 @@
         <table class="table table-bordered">
           <thead>
             <tr>
-              <th>Código i-Educar</th>
+              <th width="200px">Código i-Educar</th>
               <th>Nome</th>
-              <th>Carga horária</th>
+              <th width="200px">Carga horária</th>
+              <th width="200px">Créditos</th>
             </tr>
           </thead>
           <tbody>
@@ -96,6 +96,10 @@
               <td><%= classroom_discipline.discipline.ieducar_code %></td>
               <td><%= classroom_discipline.discipline.name %></td>
               <td><%= classroom_discipline.course_load %></td>
+              <td><%= number_field_tag 'credits',
+                        classroom_discipline.credits,
+                        class: 'form-control form-credits',
+                        id: classroom_discipline.id %></td>
             </tr>
             <% end %>
           </tbody>
@@ -105,3 +109,5 @@
   </div>
 
 </div>
+
+<%= javascript_include_tag 'views/classrooms/show' %>
