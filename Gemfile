@@ -23,6 +23,8 @@ gem 'cocoon'
 gem 'jquery_mask_rails', '~> 0.1.0'
 
 group :development, :test do
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'rspec-rails', '~> 3.6'
 end
 
