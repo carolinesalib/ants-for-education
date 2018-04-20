@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'board_generator/index'
+  get 'board_generator/build'
+
   get 'class_schedule/edit'
 
   devise_for :users

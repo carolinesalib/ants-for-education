@@ -1,0 +1,2 @@
+module BoardGeneratorHelper
+end
