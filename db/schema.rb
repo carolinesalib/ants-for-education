@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204211034) do
+ActiveRecord::Schema.define(version: 20180426003542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,6 @@ ActiveRecord::Schema.define(version: 20180204211034) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "classroom_disciplines", force: :cascade do |t|
-    t.integer  "course_load"
-    t.integer  "classroom_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
-    t.integer  "discipline_id"
-    t.integer  "credits"
-    t.index ["classroom_id"], name: "index_classroom_disciplines_on_classroom_id", using: :btree
-    t.index ["discipline_id"], name: "index_classroom_disciplines_on_discipline_id", using: :btree
-  end
-
   create_table "classrooms", force: :cascade do |t|
     t.integer  "ieducar_code"
     t.string   "name"
@@ -58,6 +47,17 @@ ActiveRecord::Schema.define(version: 20180204211034) do
     t.index ["course_id"], name: "index_classrooms_on_course_id", using: :btree
     t.index ["school_id"], name: "index_classrooms_on_school_id", using: :btree
     t.index ["serie_id"], name: "index_classrooms_on_serie_id", using: :btree
+  end
+
+  create_table "classrooms_disciplines", force: :cascade do |t|
+    t.integer  "course_load"
+    t.integer  "classroom_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "discipline_id"
+    t.integer  "credits"
+    t.index ["classroom_id"], name: "index_classrooms_disciplines_on_classroom_id", using: :btree
+    t.index ["discipline_id"], name: "index_classrooms_disciplines_on_discipline_id", using: :btree
   end
 
   create_table "courses", force: :cascade do |t|
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20180204211034) do
   end
 
   add_foreign_key "class_schedule_steps", "class_schedules"
-  add_foreign_key "classroom_disciplines", "classrooms"
+  add_foreign_key "classrooms_disciplines", "classrooms"
   add_foreign_key "schedules", "class_schedules"
   add_foreign_key "schedules", "classrooms"
   add_foreign_key "schedules", "disciplines"
