@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180426003542) do
+ActiveRecord::Schema.define(version: 20180506165851) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,17 @@ ActiveRecord::Schema.define(version: 20180426003542) do
     t.string   "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.integer  "discipline_id"
+    t.integer  "classroom_id"
+    t.integer  "course_load"
+    t.integer  "credits"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["classroom_id"], name: "index_lessons_on_classroom_id", using: :btree
+    t.index ["discipline_id"], name: "index_lessons_on_discipline_id", using: :btree
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -158,6 +169,8 @@ ActiveRecord::Schema.define(version: 20180426003542) do
 
   add_foreign_key "class_schedule_steps", "class_schedules"
   add_foreign_key "classrooms_disciplines", "classrooms"
+  add_foreign_key "lessons", "classrooms"
+  add_foreign_key "lessons", "disciplines"
   add_foreign_key "schedules", "class_schedules"
   add_foreign_key "schedules", "classrooms"
   add_foreign_key "schedules", "disciplines"

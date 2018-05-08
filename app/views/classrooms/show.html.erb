@@ -91,15 +91,15 @@
             </tr>
           </thead>
           <tbody>
-            <% @classroom.classroom_disciplines.each do |classroom_discipline| %>
+            <% @classroom.lessons.each do |lesson| %>
             <tr>
-              <td><%= classroom_discipline.discipline.ieducar_code %></td>
-              <td><%= classroom_discipline.discipline.name %></td>
-              <td><%= classroom_discipline.course_load %></td>
+              <td><%= lesson.discipline.ieducar_code %></td>
+              <td><%= lesson.discipline.name %></td>
+              <td><%= lesson.course_load %></td>
               <td><%= number_field_tag 'credits',
-                        classroom_discipline.credits,
+                                       lesson.credits,
                         class: 'form-control form-credits',
-                        id: classroom_discipline.id %></td>
+                        id: lesson.id %></td>
             </tr>
             <% end %>
           </tbody>

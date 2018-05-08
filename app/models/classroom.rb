@@ -1,5 +1,6 @@
 class Classroom < ApplicationRecord
-  has_and_belongs_to_many :disciplines
+  has_many :lessons
+  has_many :disciplines, through: :lessons
   belongs_to :serie
   belongs_to :course
   belongs_to :school

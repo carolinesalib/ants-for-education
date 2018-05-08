@@ -15,11 +15,11 @@ class ClassroomsController < ApplicationController
   end
 
   def edit_disciplines
-    classroom_discipline = ClassroomDiscipline.find(params[:id])
-    classroom_discipline.credits = params[:credits]
+    lesson = Lesson.find(params[:id])
+    lesson.credits = params[:credits]
 
-    if !classroom_discipline.save
-      render :nothing => true, :status => :bad_request
+    if !lesson.save
+      render nothing: true, status: :bad_request
     end
   end
 end
