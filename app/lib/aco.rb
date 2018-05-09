@@ -13,35 +13,52 @@
 # - class with consecutive disciplines (3 consecutively scores 1, 4 consecutively scores 2, 2 consecutively scores 3)
 
 class Aco
-  NUMBER_OF_ANTS = 20
+  NUMBER_OF_ANTS = 10
 
   def initialize(classrooms, days, periods)
-    matrix = matrix(classrooms, days, periods)
+    # test data classroom
+    school = School.find(33)
+    classrooms = Classroom.where(school_id: school.id)
+    timeslots = timeslots(classrooms, days, periods)
+    events = events(classrooms)
 
-    test_data
+    min_max_as(events)
 
-    # o que é a colonia neste cenario "each_colony"/ acho que é minha matriz inicial
-    # build_solution
+    # test_data
   end
 
-  def aco
-    (0..NUMBER_OF_ANTS).each do |ant|
-
+  def min_max_as(events)
+    (1..NUMBER_OF_ANTS).each do |index_ant|
+      # construction process of ant
+      events.each do |event|
+        # choose timeslot t randomly according to probabilities pei,t for event ei
+        event
+      end
     end
   end
 
-  def matrix(classrooms, days, periods)
-    matrix = []
+  def events(classrooms)
+    events = []
+
+    classrooms.each do |classroom|
+      events += classroom.lessons
+    end
+
+    events
+  end
+
+  def timeslots(classrooms, days, periods)
+    timeslots = []
 
     classrooms.each do |classroom|
       (1..days).each do |day|
         (1..periods).each do |period|
-          matrix << [classroom.id, day, period]
+          timeslots << [classroom.id, day, period]
         end
       end
     end
 
-    matrix
+    timeslots
   end
 
   def test_data
@@ -59,11 +76,10 @@ class Aco
 
       available_course_load = teachers.map{ |t| t.course_load.to_i }.inject(0, :+)
 
-      disciplines[index] =disciplines[index].attributes.merge(
-        {
-          teachers_qtde: teachers.size,
-          sum_course_load: available_course_load
-        })
+      disciplines[index] = disciplines[index].attributes.merge(
+        teachers_qtde: teachers.size,
+        sum_course_load: available_course_load
+      )
     end
 
     disciplines
