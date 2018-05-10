@@ -22,26 +22,48 @@ class Aco
     timeslots = timeslots(classrooms, days, periods)
     events = events(classrooms)
 
-    min_max_as(events)
+    min_max_as(events, timeslots)
 
+    # as = AntColonySystemSample.new
+    # as.teste_solution
     # test_data
   end
 
-  def min_max_as(events)
+  def min_max_as(events, timeslots)
+    pheromone_initialization = pheromone_initialization(events, timeslots)
+
+
     (1..NUMBER_OF_ANTS).each do |index_ant|
       # construction process of ant
       events.each do |event|
         # choose timeslot t randomly according to probabilities pei,t for event ei
-        event
+        event # event.credits
       end
     end
+  end
+
+  def pheromone_initialization(events, timeslots)
+    t_max = 3.3 # descobrir como calcular
+    pheromone_matrix = []
+
+    events.size.times do |event_index|
+      timeslots.size.times do |timeslot_index|
+        pheromone_matrix[event_index, timeslot_index] = t_max
+      end
+    end
+
+    pheromone_matrix
   end
 
   def events(classrooms)
     events = []
 
     classrooms.each do |classroom|
-      events += classroom.lessons
+      classroom.lessons.each do |lesson|
+        lesson.credits.times do |credit|
+          events << [lesson.id, credit]
+        end
+      end
     end
 
     events
