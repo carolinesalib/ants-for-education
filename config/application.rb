@@ -27,5 +27,6 @@ module AntsForEducation
       #{config.root}/lib
     ]
 
+    config.active_record.time_zone_aware_types = [:datetime, :time]
   end
 end

@@ -29,6 +29,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'guard-rspec', require: false
   gem 'listen', '~> 3.0.5'
   gem 'rubocop'
   gem 'simplecov'
