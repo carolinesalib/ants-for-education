@@ -18,12 +18,19 @@ class Aco
   def min_max_as(events, timeslots)
     pheromone_matrix = initialize_pheromone_matrix(events, timeslots)
     heuristic_matrix = initialize_heuristic_matrix(events, timeslots)
+    shuffled_events = shuffled_events(events)
 
     while(true) do # list_timetable not optimized or time not reach
-      NUMBER_OF_ANTS.times do |index_ant|
+      NUMBER_OF_ANTS.times do |ant|
         pheromone = []
-        events.each do |event|
+        shuffled_events.each do |event|
           # choose timeslot t randomly according to probabilities pei,t for event ei
+          # verificar o que acontece na primeira formiga, pois não da de aplicar (Ai-1)
+          previous_ant = ant - 1
+          pheromone = pheromone_matrix[previous_ant]
+          heuristic = heuristic_matrix[previous_ant]
+
+          probability(timeslots, pheromone, heuristic)
         end
         # update pheromone
       end
@@ -31,7 +38,29 @@ class Aco
     end
   end
 
+  def shuffled_events(events)
+    # para este exemplo, os eventos já estão ordenados conforme suas dependências
+    # ordenar por turma, disciplina
+    events
+  end
+
+  def probability(pheromone, heuristic)
+
+  end
+
   def initialize_heuristic_matrix(events, timeslots)
+    heuristic_matrix = []
+
+    events.size.times do |event_index|
+      timeslots.size.times do |timeslot_index|
+        heuristic_matrix[event_index, timeslot_index] = 0
+      end
+    end
+
+    heuristic_matrix
+  end
+
+  def heuristic_information
 
   end
 
