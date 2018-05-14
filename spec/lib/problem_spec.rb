@@ -89,4 +89,8 @@ describe Problem do
       end
     end
   end
+
+  describe '#max_pheromone' do
+    pending 'add max pheromone calc'
+  end
 end
