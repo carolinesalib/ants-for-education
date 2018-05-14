@@ -21,13 +21,13 @@ class Problem
     true
   end
 
-  def timeslot
+  def timeslots
     timeslot = []
 
     @classrooms.each do |classroom|
       (1..@days).each do |day|
         (1..@periods).each do |period|
-          timeslot << [classroom.id, day, period]
+          timeslot << Timeslot.new(classroom.id, day, period)
         end
       end
     end
@@ -40,12 +40,25 @@ class Problem
 
     @classrooms.each do |classroom|
       classroom.lessons.each do |lesson|
-        lesson.credits.times do |credit|
-          events << Credit.new(lesson, credit)
+        lesson.credits.times do |event|
+          events << Event.new(lesson, event)
         end
       end
     end
 
     events
+  end
+
+  def event_timeslot_pheromone(events, timeslots)
+    t_max = 3.3 # calc after
+    pheromone_matrix = []
+
+    events.each do |credit|
+      timeslots.each do |timeslot|
+        pheromone_matrix[credit, timeslot] = t_max
+      end
+    end
+
+    pheromone_matrix
   end
 end
