@@ -1,10 +1,12 @@
 class Problem
-  attr_reader :classrooms, :days, :periods
+  attr_reader :classrooms, :days, :periods, :event_timeslot_pheromone
 
   def initialize(classrooms, days, periods)
     @classrooms = classrooms
     @days = days
     @periods = periods
+
+    initialize_event_timeslot_pheromone
   end
 
   def total_timeslots
@@ -50,22 +52,22 @@ class Problem
   end
 
   # TODO: move this code to a class named pheromone
-  def event_timeslot_pheromone
+  def initialize_event_timeslot_pheromone
     t_max = 3.3 # calc after
-    pheromone_matrix = []
+    @event_timeslot_pheromone = []
 
     events.each do |event|
       timeslots.each do |timeslot|
         pheromone = Pheromone.new(event, timeslot)
         pheromone.value = t_max
-        pheromone_matrix << pheromone
+        @event_timeslot_pheromone << pheromone
       end
     end
 
-    pheromone_matrix
+    @event_timeslot_pheromone
   end
 
-  def sum_pheromone_for_event(event, pheromone_matrix)
-    pheromone_matrix.select { |pheromone| pheromone.event == event }.map(&:value).reduce(:+)
+  def sum_pheromone_for_event(event)
+    @event_timeslot_pheromone.select { |pheromone| pheromone.event == event }.map(&:value).reduce(:+)
   end
 end

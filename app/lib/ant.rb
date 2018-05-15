@@ -3,8 +3,8 @@ class Ant
   def move!(problem)
     problem.events.each do |event|
       # find the range for normalization
-      pheromone_matrix = problem.event_timeslot_pheromone
-      range = problem.sum_pheromone_for_event(event, pheromone_matrix)
+      range = problem.sum_pheromone_for_event(event)
+      range
 
       # choose a random number between 0.0 and sum of the pheromone level
       # for this event and current sum of heuristic information
