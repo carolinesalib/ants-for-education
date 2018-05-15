@@ -49,16 +49,26 @@ class Problem
     events
   end
 
+  # TODO: move this code to a class named pheromone
   def event_timeslot_pheromone(events, timeslots)
     t_max = 3.3 # calc after
     pheromone_matrix = []
 
-    events.each do |credit|
+    events.each do |event|
       timeslots.each do |timeslot|
-        pheromone_matrix[credit, timeslot] = t_max
+        pheromone_matrix[event, timeslot] = t_max
       end
     end
 
     pheromone_matrix
+  end
+
+  def sum_pheromone_for_event(event)
+    sum_pheromone = 0.0
+
+    timeslots.each do |timeslot|
+      sum_pheromone += pheromone_matrix[event, timeslot]
+    end
+    sum_pheromone
   end
 end

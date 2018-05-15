@@ -79,7 +79,7 @@ describe Problem do
   end
 
   describe '#events' do
-    it 'should return 75 events' do
+    it 'should return 75 events (25 peer classroom)' do
       expect(subject.events.size).to eq(75)
     end
 
@@ -93,4 +93,10 @@ describe Problem do
   describe '#max_pheromone' do
     pending 'add max pheromone calc'
   end
+
+  # describe '#sum_pheromone_for_event' do
+  #   it 'should return sum pheromone for the event' do
+  #     expect(subject.sum_pheromone_for_event(event)).to eq()
+  #   end
+  # end
 end
