@@ -5,4 +5,8 @@ class Event
     @lesson = lesson
     @credit = credit
   end
+
+  def ==(other)
+    @lesson.id == other.lesson.id && @credit == other.credit
+  end
 end

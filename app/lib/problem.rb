@@ -50,25 +50,22 @@ class Problem
   end
 
   # TODO: move this code to a class named pheromone
-  def event_timeslot_pheromone(events, timeslots)
+  def event_timeslot_pheromone
     t_max = 3.3 # calc after
     pheromone_matrix = []
 
     events.each do |event|
       timeslots.each do |timeslot|
-        pheromone_matrix[event, timeslot] = t_max
+        pheromone = Pheromone.new(event, timeslot)
+        pheromone.value = t_max
+        pheromone_matrix << pheromone
       end
     end
 
     pheromone_matrix
   end
 
-  def sum_pheromone_for_event(event)
-    sum_pheromone = 0.0
-
-    timeslots.each do |timeslot|
-      sum_pheromone += pheromone_matrix[event, timeslot]
-    end
-    sum_pheromone
+  def sum_pheromone_for_event(event, pheromone_matrix)
+    pheromone_matrix.select { |pheromone| pheromone.event == event }.map(&:value).reduce(:+)
   end
 end

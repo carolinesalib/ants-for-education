@@ -1,5 +1,5 @@
 class MMAS
-  attr_reader :problem
+  attr_reader :classrooms, :days, :periods
 
   NUMBER_OF_ANTS = 10
   ALPHA = 1
@@ -10,15 +10,21 @@ class MMAS
   TIME_LIMIT_SECONDS = 90
 
   def initialize(classrooms, days, periods)
-    @problem = Problem.new(classrooms, days, periods)
+    @classrooms = classrooms
+    @days = days
+    @periods = periods
   end
 
   def generate
     time_start = Time.now
+    problem = Problem.new(classrooms, days, periods)
 
     NUMBER_OF_TRIES.times do
       raise TimeLimitError if time_passed?(time_start)
 
+      ants.each do |ant|
+        problem = ant.move!(problem)
+      end
     end
   end
 

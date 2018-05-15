@@ -21,8 +21,16 @@ describe MMAS do
   subject { MMAS.new(classrooms, days, periods) }
 
   describe '#initialize' do
-    it 'should contains a problem' do
-      expect(subject.problem).to be_a(Problem)
+    it 'should contains classrooms' do
+      expect(subject.classrooms).to eq(classrooms)
+    end
+
+    it 'should contains periods' do
+      expect(subject.periods).to eq(periods)
+    end
+
+    it 'should contains days' do
+      expect(subject.days).to eq(days)
     end
   end
 
@@ -44,6 +52,10 @@ describe MMAS do
     it 'should raise TimeLimitError if time was passed' do
       allow(subject).to receive(:time_passed?).and_return(true)
       expect { subject.generate }.to raise_error(TimeLimitError)
+    end
+
+    it 'should not raise error' do
+      expect { subject.generate }.not_to raise_error
     end
   end
 
