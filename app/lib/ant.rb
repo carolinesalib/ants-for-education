@@ -4,7 +4,7 @@ class Ant
     problem.events.each do |event|
       # find the range for normalization
       pheromone_matrix = problem.event_timeslot_pheromone
-      range = sum_pheromone_for_event(event, problem)
+      range = problem.sum_pheromone_for_event(event, pheromone_matrix)
 
       # choose a random number between 0.0 and sum of the pheromone level
       # for this event and current sum of heuristic information
