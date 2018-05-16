@@ -23,7 +23,8 @@ class MMAS
       raise TimeLimitError if time_passed?(time_start)
 
       ants.each do |ant|
-        ant.move!(problem)
+        problem = ant.move!(problem)
+        problem
       end
     end
   end
