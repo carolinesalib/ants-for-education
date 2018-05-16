@@ -3,6 +3,8 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
+  PHEROMONE_EVAPORATION = 1.0
+
   def initialize(classrooms, days, periods)
     @classrooms = classrooms
     @days = days
@@ -82,5 +84,13 @@ class Problem
     end
 
     total_pheromone
+  end
+
+  def evaporate_pheromone
+    events.size.times do |event_index|
+      timeslots.size.times do |timeslot_index|
+        @event_timeslot_pheromone[[event_index, timeslot_index]] *= PHEROMONE_EVAPORATION
+      end
+    end
   end
 end

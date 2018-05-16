@@ -24,9 +24,12 @@ class MMAS
 
       ants.each do |ant|
         problem = ant.move!(problem)
-        problem
       end
+
+      problem.evaporate_pheromone
     end
+
+    problem
   end
 
   def time_passed?(time_start)
