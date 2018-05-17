@@ -67,15 +67,15 @@ describe Problem do
   end
 
   describe '#timeslot' do
-    it 'should have 75 timeslots (25 peer classroom)' do
-      expect(subject.timeslots.size).to eq(75)
+    it 'should have 25 timeslots (5 days 5 periods)' do
+      expect(subject.timeslots.size).to eq(25)
     end
 
-    it 'should have one timeslot object in each array element' do
-      subject.timeslots.each do |timeslot|
-        expect(timeslot).to be_a(Timeslot)
-      end
-    end
+    # it 'should have one timeslot object in each array element' do
+    #   subject.timeslots.each do |timeslot|
+    #     expect(timeslot).to be_a(Timeslot)
+    #   end
+    # end
   end
 
   describe '#events' do

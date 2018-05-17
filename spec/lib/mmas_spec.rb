@@ -21,16 +21,8 @@ describe MMAS do
   subject { MMAS.new(classrooms, days, periods) }
 
   describe '#initialize' do
-    it 'should contains classrooms' do
-      expect(subject.classrooms).to eq(classrooms)
-    end
-
-    it 'should contains periods' do
-      expect(subject.periods).to eq(periods)
-    end
-
-    it 'should contains days' do
-      expect(subject.days).to eq(days)
+    it 'should contains problem' do
+      expect(subject.problem).to be_a(Problem)
     end
   end
 

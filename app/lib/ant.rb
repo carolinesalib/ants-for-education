@@ -1,7 +1,12 @@
 class Ant
+  attr_accessor :problem
 
-  def move!(problem)
-    problem.events.size.times do |event_index|
+  def initialize(problem)
+    @problem = problem
+  end
+
+  def move!
+    @problem.events.size.times do |event_index|
       range = problem.sum_pheromone_for_event(event_index)
 
       # choose a random number between 0.0 and sum of the pheromone level
@@ -13,8 +18,8 @@ class Ant
       total = 0.0
       timeslot = nil
 
-      problem.timeslots.size.times do |timeslot_index|
-        total += problem.event_timeslot_pheromone[[event_index, timeslot_index]]
+      @problem.timeslots.size.times do |timeslot_index|
+        total += @problem.event_timeslot_pheromone[[event_index, timeslot_index]]
 
         if total >= random
           timeslot = timeslot_index
@@ -22,9 +27,12 @@ class Ant
         end
       end
 
-      problem.timeslots_events[timeslot].push(event_index)
+      @problem.timeslots_events[timeslot].push(event_index)
     end
+    @problem
+  end
 
-    problem
+  def compute_fitness
+    @problem.hard_constraints_violations
   end
 end

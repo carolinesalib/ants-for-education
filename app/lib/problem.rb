@@ -12,7 +12,6 @@ class Problem
 
     initialize_timeslots
     initialize_events
-    initialize_event_timeslot_pheromone
     initialize_timeslots_events
   end
 
@@ -31,13 +30,11 @@ class Problem
   end
 
   def initialize_timeslots
-    @timeslots = []
+    @timeslots = {}
 
-    @classrooms.each do |classroom|
-      (1..@days).each do |day|
-        (1..@periods).each do |period|
-          @timeslots << Timeslot.new(classroom.id, day, period)
-        end
+    (1..@days).each do |day|
+      (1..@periods).each do |period|
+        @timeslots[[day, period]] = nil
       end
     end
   end
@@ -62,8 +59,7 @@ class Problem
     end
   end
 
-  # TODO: move this code to a class named pheromone
-  def initialize_event_timeslot_pheromone
+  def reset_pheromone
     t_max = 3.3 # calc after
     @event_timeslot_pheromone = {}
 
@@ -92,5 +88,22 @@ class Problem
         @event_timeslot_pheromone[[event_index, timeslot_index]] *= PHEROMONE_EVAPORATION
       end
     end
+  end
+
+  def hard_constraints_violations
+    hard_constraints_violations = 0
+
+    # TODO: provavelmente vou usar para validações do professor
+    # events.size.times do |event_index|
+    #   timeslots.size.times do |timeslot_index|
+    #     # only one event can
+    #     if timeslots_events[timeslot_index].first == timeslots_events[event_index].first &&
+    #        timeslots_events[timeslot_index].second == timeslots_events[event_index].second
+    #       hard_constraints_violations += 1
+    #     end
+    #   end
+    # end
+
+    hard_constraints_violations
   end
 end
