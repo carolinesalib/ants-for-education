@@ -21,14 +21,16 @@ class MMAS
     NUMBER_OF_TRIES.times do
       raise TimeLimitError if time_passed?(time_start)
 
-      ants.each(&:move!)
+      ants.each do |ant|
+        @problem = ant.move!(@problem)
+      end
 
       @problem.evaporate_pheromone
 
       best_fitness = 99999
       ant_best_fitness = nil
       ants.each do |ant|
-        fitness = ant.compute_fitness
+        fitness = @problem.hard_constraints_violations
         if fitness < best_fitness
           ant_best_fitness = ant
         end
@@ -44,6 +46,6 @@ class MMAS
   end
 
   def ants
-    Array.new(NUMBER_OF_ANTS, Ant.new(@problem))
+    Array.new(NUMBER_OF_ANTS, Ant.new)
   end
 end
