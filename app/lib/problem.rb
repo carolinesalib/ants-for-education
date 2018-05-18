@@ -89,21 +89,4 @@ class Problem
       end
     end
   end
-
-  def hard_constraints_violations
-    hard_constraints_violations = 0
-
-    # TODO: provavelmente vou usar para validações do professor
-    # events.size.times do |event_index|
-    #   timeslots.size.times do |timeslot_index|
-    #     # only one event can
-    #     if timeslots_events[timeslot_index].first == timeslots_events[event_index].first &&
-    #        timeslots_events[timeslot_index].second == timeslots_events[event_index].second
-    #       hard_constraints_violations += 1
-    #     end
-    #   end
-    # end
-
-    hard_constraints_violations
-  end
 end

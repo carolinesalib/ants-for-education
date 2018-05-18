@@ -1,11 +1,8 @@
 class Ant
   attr_accessor :solution
 
-  def initialize
-    @solution = Solution.new
-  end
-
   def move!(problem)
+    @solution = Solution.new(problem)
     @solution.timeslots_teachers = problem.timeslots_events
 
     problem.events.size.times do |event_index|
@@ -33,13 +30,17 @@ class Ant
       problem.timeslots_events[timeslot].push(event_index)
     end
 
-    solution.assign_teachers(problem)
+    @solution.assign_teachers
     problem
   end
 end
 
 class Solution
   attr_accessor :timeslots_teachers
+
+  def initialize(problem)
+    @problem = problem
+  end
 
   # TODO:
   # criar o init event_teachers
@@ -49,19 +50,42 @@ class Solution
   #   - não ter dois professores diferentes para a mesma disciplinas em uma mesma classe
 
 
-  def assign_teachers(problem)
-    problem.timeslots.size.times do |timeslot|
-      problem.events.size.times do |event|
+  def assign_teachers
+    @problem.timeslots.size.times do |timeslot|
+      @problem.events.size.times do |event|
         event_index = timeslots_teachers[timeslot][event]
 
         return if event_index.nil?
 
-        event = problem.events[event_index]
+        event = @problem.events[event_index]
 
         unless event.teacher.present?
           event.teacher = TeacherDiscipline.where(discipline_id: event.discipline_id).first.teacher
         end
       end
     end
+  end
+
+
+  def hard_constraints_violations
+    hard_constraints_violations = 0
+
+    @problem.timeslots.size.times do |timeslot_index|
+      events = timeslots_teachers[timeslot_index]
+      teachers = []
+      events.each do |event_index|
+        if @problem.events[event_index].teacher.present?
+          teachers << @problem.events[event_index].teacher.id
+        end
+      end
+
+      if teachers.uniq.size < events.size
+        hard_constraints_violations += 1
+      end
+    end
+
+    puts hard_constraints_violations
+
+    hard_constraints_violations
   end
 end
