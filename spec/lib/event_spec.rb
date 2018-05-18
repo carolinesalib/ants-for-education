@@ -27,4 +27,10 @@ describe Event do
       expect(subject == other_event).to be_falsey
     end
   end
+
+  describe '#discipline_id' do
+    it 'should return the discipline id of lesson' do
+      expect(subject.discipline_id).to eq(lesson.discipline_id)
+    end
+  end
 end

@@ -5,6 +5,7 @@ describe MMAS do
   let(:days) { 5 }
   let(:periods) { 5 }
   let(:disciplines) { create_list(:discipline, 5) }
+  let(:teachers) { create_list(:teacher, 5) }
 
   before do
     classrooms.each do |classroom|
@@ -13,6 +14,15 @@ describe MMAS do
           discipline_id: discipline.id,
           classroom_id: classroom.id,
           credits: 5
+        )
+      end
+    end
+
+    disciplines.each do |discipline|
+      teachers.each do |teacher|
+        TeacherDiscipline.create(
+          discipline: discipline,
+          teacher: teacher
         )
       end
     end
