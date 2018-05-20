@@ -15,25 +15,49 @@ class MMAS
 
   def generate
     time_start = Time.now
-
-    @problem.reset_pheromone
+    best_solution = Solution.new(@problem)
 
     NUMBER_OF_TRIES.times do
+      @problem.reset_pheromone
+
       raise TimeLimitError if time_passed?(time_start)
 
       best_fitness = 99999
-      ant_best_fitness = nil
+      best_ant = nil
       ants.each do |ant|
         @problem = ant.move!(@problem)
 
+        @problem.evaporate_pheromone
+
         fitness = ant.solution.hard_constraints_violations
         if fitness < best_fitness
-          ant_best_fitness = ant
+          best_fitness = fitness
+          best_ant = ant
         end
       end
 
-      @problem.evaporate_pheromone
+      feasible = best_ant.solution.compute_feasibility
 
+      # if feasible
+      #   # ant[ant_idx]->solution->computeScv();
+      #   # if (ant[ant_idx]->solution->scv<=best_solution->scv) {
+      #   #     best_solution->copy(ant[ant_idx]->solution);
+      #   # best_solution->hcv = 0;
+      #   # control.setCurrentCost(best_solution);
+      #   # }
+      # else
+      #   # ant[ant_idx]->solution->computeHcv();
+      #   # if (ant[ant_idx]->solution->hcv<=best_solution->hcv) {
+      #   #     best_solution->copy(ant[ant_idx]->solution);
+      #   # control.setCurrentCost(best_solution);
+      #   # best_solution->scv = 99999;
+      #   # }
+      # end
+      #
+      # best_ant.solution = best_solution
+      #
+      # @problem.pheromone_min_max
+      # @problem.deposite_pheromone
     end
   end
 
