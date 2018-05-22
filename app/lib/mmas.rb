@@ -1,5 +1,5 @@
 class MMAS
-  attr_reader :problem
+  attr_reader :problem, :ants
 
   NUMBER_OF_ANTS = 10
   ALPHA = 1
@@ -15,6 +15,7 @@ class MMAS
 
   def generate
     time_start = Time.now
+    generate_ants
     best_solution = Solution.new(@problem)
     best_solution.calcule_hard_constraints_violations
 
@@ -24,8 +25,8 @@ class MMAS
       raise TimeLimitError if time_passed?(time_start)
 
       best_fitness = 99999
-      best_ant = nil
-      ants.each do |ant|
+      ant_index = nil
+      @ants.each_with_index do |ant, index|
         @problem = ant.move!(@problem)
 
         @problem.evaporate_pheromone
@@ -33,11 +34,11 @@ class MMAS
         fitness = ant.solution.calcule_hard_constraints_violations
         if fitness < best_fitness
           best_fitness = fitness
-          best_ant = ant
+          ant_index = index
         end
       end
 
-      feasible = best_ant.solution.compute_feasibility
+      feasible = @ants[ant_index].solution.compute_feasibility
 
       if feasible
         'debug'
@@ -48,16 +49,16 @@ class MMAS
         # control.setCurrentCost(best_solution);
         # }
       else
-        best_ant.solution.calcule_hard_constraints_violations
-        if best_ant.solution.hard_constraints_violations <= best_solution.hard_constraints_violations
-          best_solution = best_ant.solution
+        @ants[ant_index].solution.calcule_hard_constraints_violations
+        if @ants[ant_index].solution.hard_constraints_violations <= best_solution.hard_constraints_violations
+          best_solution = @ants[ant_index].solution
           # control.setCurrentCost(best_solution);
           # best_solution->scv = 99999;
         end
 
       end
 
-      best_ant.solution = best_solution
+      @ants[ant_index].solution = best_solution
 
       @problem.pheromone_min_max
       # @problem.deposite_pheromone
@@ -70,7 +71,7 @@ class MMAS
     false
   end
 
-  def ants
-    Array.new(NUMBER_OF_ANTS, Ant.new)
+  def generate_ants
+    @ants = Array.new(NUMBER_OF_ANTS, Ant.new)
   end
 end

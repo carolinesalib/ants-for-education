@@ -36,15 +36,17 @@ describe MMAS do
     end
   end
 
-  describe '#load_ants' do
-    let(:ants) { subject.ants }
+  describe '#generate_ants' do
+    before do
+      subject.generate_ants
+    end
 
     it 'should return an array with total number of ants' do
-      expect(ants.size).to eq(MMAS::NUMBER_OF_ANTS)
+      expect(subject.ants.size).to eq(MMAS::NUMBER_OF_ANTS)
     end
 
     it 'should contain an ant object in each array space' do
-      ants.each do |ant|
+      subject.ants.each do |ant|
         expect(ant).to be_an(Ant)
       end
     end
