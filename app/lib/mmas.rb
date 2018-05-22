@@ -16,6 +16,7 @@ class MMAS
   def generate
     time_start = Time.now
     best_solution = Solution.new(@problem)
+    best_solution.calcule_hard_constraints_violations
 
     NUMBER_OF_TRIES.times do
       @problem.reset_pheromone
@@ -29,7 +30,7 @@ class MMAS
 
         @problem.evaporate_pheromone
 
-        fitness = ant.solution.hard_constraints_violations
+        fitness = ant.solution.calcule_hard_constraints_violations
         if fitness < best_fitness
           best_fitness = fitness
           best_ant = ant
@@ -38,24 +39,26 @@ class MMAS
 
       feasible = best_ant.solution.compute_feasibility
 
-      # if feasible
-      #   # ant[ant_idx]->solution->computeScv();
-      #   # if (ant[ant_idx]->solution->scv<=best_solution->scv) {
-      #   #     best_solution->copy(ant[ant_idx]->solution);
-      #   # best_solution->hcv = 0;
-      #   # control.setCurrentCost(best_solution);
-      #   # }
-      # else
-      #   # ant[ant_idx]->solution->computeHcv();
-      #   # if (ant[ant_idx]->solution->hcv<=best_solution->hcv) {
-      #   #     best_solution->copy(ant[ant_idx]->solution);
-      #   # control.setCurrentCost(best_solution);
-      #   # best_solution->scv = 99999;
-      #   # }
-      # end
-      #
-      # best_ant.solution = best_solution
-      #
+      if feasible
+        'debug'
+        # ant[ant_idx]->solution->computeScv();
+        # if (ant[ant_idx]->solution->scv<=best_solution->scv) {
+        #     best_solution->copy(ant[ant_idx]->solution);
+        # best_solution->hcv = 0;
+        # control.setCurrentCost(best_solution);
+        # }
+      else
+        best_ant.solution.calcule_hard_constraints_violations
+        if best_ant.solution.hard_constraints_violations <= best_solution.hard_constraints_violations
+          best_solution = best_ant.solution
+          # control.setCurrentCost(best_solution);
+          # best_solution->scv = 99999;
+        end
+
+      end
+
+      best_ant.solution = best_solution
+
       # @problem.pheromone_min_max
       # @problem.deposite_pheromone
     end

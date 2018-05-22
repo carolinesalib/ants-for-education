@@ -1,8 +1,10 @@
 class Solution
   attr_accessor :timeslots_teachers
+  attr_reader :hard_constraints_violations
 
   def initialize(problem)
     @problem = problem
+    @timeslots_teachers = problem.timeslots_events
   end
 
   # TODO:
@@ -30,7 +32,7 @@ class Solution
   end
 
 
-  def hard_constraints_violations
+  def calcule_hard_constraints_violations
     hard_constraints_violations = 0
 
     @problem.timeslots.size.times do |timeslot_index|
@@ -43,7 +45,7 @@ class Solution
       hard_constraints_violations += 1 if teachers.uniq.size < events.size
     end
 
-    hard_constraints_violations
+    @hard_constraints_violations = hard_constraints_violations
   end
 
   def compute_feasibility
