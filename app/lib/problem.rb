@@ -3,16 +3,27 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
-  PHEROMONE_EVAPORATION = 1.0
-
-  def initialize(classrooms, days, periods)
+  def initialize(classrooms, days, periods, pheromone_evaporation = 1.0, minimal_pheromone = 0.0)
     @classrooms = classrooms
     @days = days
     @periods = periods
+    @minimal_pheromone = minimal_pheromone
+    @pheromone_evaporation = pheromone_evaporation
 
+    calc_maximum_pheromone(pheromone_evaporation)
     initialize_timeslots
     initialize_events
     initialize_timeslots_events
+  end
+
+  def calc_maximum_pheromone(pheromone_evaporation)
+    @maximum_pheromone = 9
+
+    if pheromone_evaporation < 1.0
+      @maximum_pheromone = 1.0 / (1.0 - pheromone_evaporation)
+    end
+
+    @maximum_pheromone
   end
 
   def total_timeslots
@@ -60,12 +71,11 @@ class Problem
   end
 
   def reset_pheromone
-    t_max = 3.3 # calc after
     @event_timeslot_pheromone = {}
 
     events.size.times do |event_index|
       timeslots.size.times do |timeslot_index|
-        @event_timeslot_pheromone[[event_index, timeslot_index]] = t_max
+        @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
       end
     end
 
@@ -85,7 +95,21 @@ class Problem
   def evaporate_pheromone
     events.size.times do |event_index|
       timeslots.size.times do |timeslot_index|
-        @event_timeslot_pheromone[[event_index, timeslot_index]] *= PHEROMONE_EVAPORATION
+        @event_timeslot_pheromone[[event_index, timeslot_index]] *= @pheromone_evaporation
+      end
+    end
+  end
+
+  def pheromone_min_max
+    events.size.times do |event_index|
+      timeslots.size.times do |timeslot_index|
+        if @event_timeslot_pheromone[[event_index, timeslot_index]] < @minimal_pheromone
+          @event_timeslot_pheromone[[event_index, timeslot_index]] = @minimal_pheromone
+        end
+
+        if @event_timeslot_pheromone[[event_index, timeslot_index]] > @maximum_pheromone
+          @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
+        end
       end
     end
   end
