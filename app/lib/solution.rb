@@ -36,13 +36,19 @@ class Solution
     hard_constraints_violations = 0
 
     @problem.total_timeslots.times do |timeslot_index|
-      events = timeslots_teachers[timeslot_index]
       teachers = []
-      events.each do |event_index|
-        teachers << @problem.events[event_index].teacher.id if @problem.events[event_index].teacher.present?
+      events = []
+      @problem.total_events.times do |event_index|
+        event = @problem.events[event_index]
+        if event.timeslot == timeslot_index
+          events << event_index
+          if event.teacher.present?
+            teachers << @problem.events[event_index].teacher.id
+          end
+        end
       end
 
-      hard_constraints_violations += 1 if teachers.uniq.size < events.size
+      hard_constraints_violations += 1 if teachers.uniq.size < events.size || events.size.zero?
     end
 
     @hard_constraints_violations = hard_constraints_violations
@@ -51,23 +57,27 @@ class Solution
   def compute_feasibility
     # a professor can not be in the same timeslot more than one time
     @problem.total_timeslots.times do |timeslot_index|
-      events = timeslots_teachers[timeslot_index]
       teachers = []
-      events.each do |event_index|
-        teachers << @problem.events[event_index].teacher.id if @problem.events[event_index].teacher.present?
+      events = []
+      @problem.total_events.times do |event_index|
+        event = @problem.events[event_index]
+        if event.timeslot == timeslot_index
+          events << event_index
+          if event.teacher.present?
+            teachers << @problem.events[event_index].teacher.id
+          end
+        end
       end
 
       return false if teachers.uniq.size < events.size
     end
 
     # each class must have all the timeslots allocated
-    @problem.total_timeslots.times do |timeslot_index|
-      classrooms = []
-      @problem.timeslots_events[timeslot_index].size.times do |event_index|
-        classrooms << @problem.events[event_index].lesson.classroom.id
+    @problem.total_events.times do |event_index|
+      event = @problem.events[event_index]
+      unless event.timeslot
+        return false
       end
-
-      return false if classrooms.uniq.size < classrooms.size
     end
 
     true

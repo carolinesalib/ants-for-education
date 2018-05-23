@@ -73,7 +73,6 @@ class Problem
     # just to think about it
     @events.each do |event|
       timeslot = timeslots.sample
-      timeslots.delete(timeslot)
       event.timeslot = timeslot
     end
   end
