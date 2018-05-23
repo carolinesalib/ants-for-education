@@ -81,7 +81,7 @@ class Problem
   def initialize_timeslots_events
     @timeslots_events = []
 
-    total_timeslots do |index|
+    total_timeslots.times do |index|
       @timeslots_events[index] = []
     end
   end
@@ -89,8 +89,8 @@ class Problem
   def reset_pheromone
     @event_timeslot_pheromone = {}
 
-    total_events do |event_index|
-      total_timeslots do |timeslot_index|
+    total_events.times do |event_index|
+      total_timeslots.times do |timeslot_index|
         @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
       end
     end
@@ -101,7 +101,7 @@ class Problem
   def sum_pheromone_for_event(event_index)
     total_pheromone = 0.0
 
-    total_timeslots do |timeslot_index|
+    total_timeslots.times do |timeslot_index|
       total_pheromone += @event_timeslot_pheromone[[event_index, timeslot_index]]
     end
 
@@ -109,16 +109,16 @@ class Problem
   end
 
   def evaporate_pheromone
-    total_events do |event_index|
-      total_timeslots do |timeslot_index|
+    total_events.times do |event_index|
+      total_timeslots.times do |timeslot_index|
         @event_timeslot_pheromone[[event_index, timeslot_index]] *= @pheromone_evaporation
       end
     end
   end
 
   def pheromone_min_max
-    total_events do |event_index|
-      total_timeslots do |timeslot_index|
+    total_events.times do |event_index|
+      total_timeslots.times do |timeslot_index|
         if @event_timeslot_pheromone[[event_index, timeslot_index]] < @minimal_pheromone
           @event_timeslot_pheromone[[event_index, timeslot_index]] = @minimal_pheromone
         end
