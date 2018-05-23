@@ -2,10 +2,11 @@ class Ant
   attr_accessor :solution
 
   def move!(problem)
-    @solution = Solution.new(problem)
+    @problem = problem
+    @solution = Solution.new(@problem)
 
-    problem.events.size.times do |event_index|
-      range = problem.sum_pheromone_for_event(event_index)
+    @problem.total_events do |event_index|
+      range = @problem.sum_pheromone_for_event(event_index)
 
       # choose a random number between 0.0 and sum of the pheromone level
       # for this event and current sum of heuristic information
@@ -16,8 +17,8 @@ class Ant
       total = 0.0
       timeslot = nil
 
-      problem.timeslots.size.times do |timeslot_index|
-        total += problem.event_timeslot_pheromone[[event_index, timeslot_index]]
+      @problem.total_timeslots do |timeslot_index|
+        total += @problem.event_timeslot_pheromone[[event_index, timeslot_index]]
 
         if total >= random
           timeslot = timeslot_index
@@ -26,10 +27,19 @@ class Ant
       end
 
       @solution.timeslots_teachers[timeslot].push(event_index)
-      problem.timeslots_events[timeslot].push(event_index)
+      @problem.timeslots_events[timeslot].push(event_index)
     end
 
     @solution.assign_teachers
-    problem
+    @problem
+  end
+
+  def deposite_pheromone
+    @problem.total_events do |event_index|
+      timeslot = @problem.events[event_index].timeslot
+      puts "event #{event_index}"
+      puts "timeslot #{timeslot}"
+      @problem.event_timeslot_pheromone[[event_index, timeslot]] += 1.0
+    end
   end
 end

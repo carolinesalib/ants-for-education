@@ -1,5 +1,5 @@
 class Event
-  attr_accessor :lesson, :credit, :teacher
+  attr_accessor :lesson, :credit, :teacher, :timeslot
 
   def initialize(lesson, credit)
     @lesson = lesson

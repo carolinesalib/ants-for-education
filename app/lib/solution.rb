@@ -1,6 +1,6 @@
 class Solution
   attr_accessor :timeslots_teachers
-  attr_reader :hard_constraints_violations
+  attr_reader :hard_constraints_violations, :problem
 
   def initialize(problem)
     @problem = problem
@@ -16,8 +16,8 @@ class Solution
 
 
   def assign_teachers
-    @problem.timeslots.size.times do |timeslot|
-      @problem.events.size.times do |event|
+    @problem.total_timeslots do |timeslot|
+      @problem.total_events do |event|
         event_index = timeslots_teachers[timeslot][event]
 
         return if event_index.nil?
@@ -35,7 +35,7 @@ class Solution
   def calcule_hard_constraints_violations
     hard_constraints_violations = 0
 
-    @problem.timeslots.size.times do |timeslot_index|
+    @problem.total_timeslots do |timeslot_index|
       events = timeslots_teachers[timeslot_index]
       teachers = []
       events.each do |event_index|
@@ -50,7 +50,7 @@ class Solution
 
   def compute_feasibility
     # a professor can not be in the same timeslot more than one time
-    @problem.timeslots.size.times do |timeslot_index|
+    @problem.total_timeslots do |timeslot_index|
       events = timeslots_teachers[timeslot_index]
       teachers = []
       events.each do |event_index|
@@ -61,7 +61,7 @@ class Solution
     end
 
     # each class must have all the timeslots allocated
-    @problem.timeslots.size.times do |timeslot_index|
+    @problem.total_timeslots do |timeslot_index|
       classrooms = []
       @problem.timeslots_events[timeslot_index].size.times do |event_index|
         classrooms << @problem.events[event_index].lesson.classroom.id

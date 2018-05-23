@@ -61,7 +61,7 @@ class MMAS
       @ants[ant_index].solution = best_solution
 
       @problem.pheromone_min_max
-      # @problem.deposite_pheromone
+      @ants[ant_index].deposite_pheromone
     end
   end
 

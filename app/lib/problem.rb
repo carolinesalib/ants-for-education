@@ -16,6 +16,14 @@ class Problem
     initialize_timeslots_events
   end
 
+  def total_events
+    events.size - 1
+  end
+
+  def total_timeslots
+    timeslots.size - 1
+  end
+
   def calc_maximum_pheromone(pheromone_evaporation)
     @maximum_pheromone = 9
 
@@ -52,6 +60,7 @@ class Problem
 
   def initialize_events
     @events = []
+    timeslots = [*0..total_timeslots]
 
     @classrooms.each do |classroom|
       classroom.lessons.each do |lesson|
@@ -60,12 +69,19 @@ class Problem
         end
       end
     end
+
+    # just to think about it
+    @events.each do |event|
+      timeslot = timeslots.sample
+      timeslots.delete(timeslot)
+      event.timeslot = timeslot
+    end
   end
 
   def initialize_timeslots_events
     @timeslots_events = []
 
-    timeslots.size.times do |index|
+    total_timeslots do |index|
       @timeslots_events[index] = []
     end
   end
@@ -73,8 +89,8 @@ class Problem
   def reset_pheromone
     @event_timeslot_pheromone = {}
 
-    events.size.times do |event_index|
-      timeslots.size.times do |timeslot_index|
+    total_events do |event_index|
+      total_timeslots do |timeslot_index|
         @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
       end
     end
@@ -85,7 +101,7 @@ class Problem
   def sum_pheromone_for_event(event_index)
     total_pheromone = 0.0
 
-    timeslots.size.times do |timeslot_index|
+    total_timeslots do |timeslot_index|
       total_pheromone += @event_timeslot_pheromone[[event_index, timeslot_index]]
     end
 
@@ -93,16 +109,16 @@ class Problem
   end
 
   def evaporate_pheromone
-    events.size.times do |event_index|
-      timeslots.size.times do |timeslot_index|
+    total_events do |event_index|
+      total_timeslots do |timeslot_index|
         @event_timeslot_pheromone[[event_index, timeslot_index]] *= @pheromone_evaporation
       end
     end
   end
 
   def pheromone_min_max
-    events.size.times do |event_index|
-      timeslots.size.times do |timeslot_index|
+    total_events do |event_index|
+      total_timeslots do |timeslot_index|
         if @event_timeslot_pheromone[[event_index, timeslot_index]] < @minimal_pheromone
           @event_timeslot_pheromone[[event_index, timeslot_index]] = @minimal_pheromone
         end
