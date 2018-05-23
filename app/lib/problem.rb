@@ -3,7 +3,7 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
-  def initialize(classrooms, days, periods, pheromone_evaporation = 1.0, minimal_pheromone = 0.0)
+  def initialize(classrooms, days, periods, pheromone_evaporation = 0.3, minimal_pheromone = 0.0)
     @classrooms = classrooms
     @days = days
     @periods = periods
