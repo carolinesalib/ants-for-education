@@ -27,7 +27,6 @@ class Ant
       end
 
       @problem.events[event_index].timeslot = timeslot
-      @solution.timeslots_teachers[timeslot].push(event_index)
       @problem.timeslots_events[timeslot].push(event_index)
     end
 

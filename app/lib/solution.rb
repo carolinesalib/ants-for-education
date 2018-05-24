@@ -1,10 +1,8 @@
 class Solution
-  attr_accessor :timeslots_teachers
   attr_reader :hard_constraints_violations, :problem
 
   def initialize(problem)
     @problem = problem
-    @timeslots_teachers = problem.timeslots_events
   end
 
   # TODO:
@@ -18,7 +16,7 @@ class Solution
   def assign_teachers
     @problem.total_timeslots.times do |timeslot|
       @problem.total_events.times do |event|
-        event_index = timeslots_teachers[timeslot][event]
+        event_index = @problem.timeslots_events[timeslot][event]
 
         return if event_index.nil?
 
