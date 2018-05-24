@@ -31,6 +31,7 @@ end
 group :development do
   gem 'guard-rspec', require: false
   gem 'listen', '~> 3.0.5'
+  gem 'rails-erd'
   gem 'rubocop'
   gem 'simplecov'
   gem 'spring'

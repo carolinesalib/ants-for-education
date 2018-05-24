@@ -17,6 +17,6 @@ class IeducarConfigurationsController < ApplicationController
   private
 
   def permitted_attributes
-    params.require(:ieducar_configuration).permit(:url)
+    params.require(:ieducar_configuration).permit(:url, :token)
   end
 end

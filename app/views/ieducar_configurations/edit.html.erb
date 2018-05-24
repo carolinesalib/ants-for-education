@@ -10,10 +10,16 @@
         <br>
         <%= form_for @configuration, url: ieducar_configuration_path, method: :patch, html: { class:"form-horizontal form-label-left" }  do |f| %>
           <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Url do i-Educar<span class="required">*</span>
-                    </label>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Url do i-Educar<span class="required">*</span></label>
             <div class="col-md-6 col-sm-6 col-xs-12">
               <%= f.text_field :url, class: "form-control col-md-7 col-xs-12", placeholder: "http://comunidade.ieducar.com.br", autofocus: true %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="url">Token de acesso<span class="required">*</span></label>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+              <%= f.text_field :token, class: "form-control col-md-7 col-xs-12", placeholder: "kXol8EPSFgd1WsXSqlaUMMa2XYYABC4", autofocus: true %>
             </div>
           </div>
           <div class="ln_solid"></div>
