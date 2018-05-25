@@ -1,0 +1,50 @@
+<% if @board.present? %>
+  <% @board.each do |board| %>
+    <div class="x_panel">
+      <div class="x_title">
+        <h2><%= board[:classroom]%></h2>
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Segunda</th>
+              <th>Terça</th>
+              <th>Terça</th>
+              <th>Quinta</th>
+              <th>Quarta</th>
+              <th>Sexta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% board[:periods].each_with_index do |period, index| %>
+              <tr>
+                <td>
+                  <%= index + 1 %>
+                </td>
+                <td>
+                  <%= period[:days][1].map { |event| "#{event[:discipline]} - #{event[:teacher]} - #{event[:timeslot]}" }.first if period[:days][1] %>
+                </td>
+                <td>
+                  <%= period[:days][2].map { |event| "#{event[:discipline]} - #{event[:teacher]} - #{event[:timeslot]}" }.first if period[:days][2] %>
+                </td>
+                <td>
+                  <%= period[:days][3].map { |event| "#{event[:discipline]} - #{event[:teacher]} - #{event[:timeslot]}" }.first if period[:days][3] %>
+                </td>
+                <td>
+                  <%= period[:days][4].map { |event| "#{event[:discipline]} - #{event[:teacher]} - #{event[:timeslot]}" }.first if period[:days][4] %>
+                </td>
+                <td>
+                  <%= period[:days][5].map { |event| "#{event[:discipline]} - #{event[:teacher]} - #{event[:timeslot]}" }.first if period[:days][5] %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
 
   get 'board_generator/index'
   get 'board_generator/build'
+  get 'board_generator/test_page'
 
   get 'class_schedule/edit'
 

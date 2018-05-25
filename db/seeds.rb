@@ -41,3 +41,24 @@ classrooms.each do |classroom|
     )
   end
 end
+
+teacher_data = []
+teacher_data << { name: 'MARIA' }
+teacher_data << { name: 'JOAO' }
+teacher_data << { name: 'MARCOS' }
+teacher_data << { name: 'DAVID' }
+teacher_data << { name: 'CLAUDIA' }
+
+teachers = []
+teacher_data.each do |teacher_name|
+  teachers << Teacher.find_or_create_by!(teacher_name)
+end
+
+disciplines.each do |discipline|
+  teachers.each do |teacher|
+    TeacherDiscipline.create(
+      discipline: discipline,
+      teacher: teacher
+    )
+  end
+end
