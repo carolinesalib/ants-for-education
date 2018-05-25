@@ -1,34 +1,36 @@
 class Solution
-  attr_reader :hard_constraints_violations, :problem
+  attr_accessor :hard_constraints_violations, :soft_constraints_violations
+  attr_reader :problem
 
   def initialize(problem)
     @problem = problem
+
+    @soft_constraints_violations = 9999
+    @hard_constraints_violations = 9999
   end
 
-  # TODO:
-  # criar o init event_teachers
-  # calcular hard constraints
-  #   - carga horária do professor
-  #   - ele não pode ta em dois timeslots iguais ao mesmo tempo
-  #   - não ter dois professores diferentes para a mesma disciplinas em uma mesma classe
-
-
-  def assign_teachers
+  def assign_teachers(problem)
     @problem.total_timeslots.times do |timeslot|
       @problem.total_events.times do |event|
         event_index = @problem.timeslots_events[timeslot][event]
 
-        return if event_index.nil?
+        break if event_index.nil?
 
-        event = @problem.events[event_index]
+        event = problem.events[event_index]
 
         unless event.teacher.present?
-          event.teacher = TeacherDiscipline.where(discipline_id: event.discipline_id).first.teacher
+          teacher = TeacherDiscipline.where(discipline_id: event.discipline_id).first.teacher
+          problem.events[event_index].teacher = teacher
         end
       end
     end
+
+    problem
   end
 
+  def calcule_soft_constraints_violations
+
+  end
 
   def calcule_hard_constraints_violations
     hard_constraints_violations = 0

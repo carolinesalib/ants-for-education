@@ -11,13 +11,13 @@ class MMAS
 
   def initialize(classrooms, days, periods)
     @problem = Problem.new(classrooms, days, periods)
+    @problem_before = @problem
   end
 
   def generate
     time_start = Time.now
     generate_ants
     best_solution = Solution.new(@problem)
-    best_solution.calcule_hard_constraints_violations
 
     NUMBER_OF_TRIES.times do
       @problem.reset_pheromone
@@ -41,30 +41,26 @@ class MMAS
       feasible = @ants[ant_index].solution.compute_feasibility
 
       if feasible
-        'debug'
-        # ant[ant_idx]->solution->computeScv();
-        # if (ant[ant_idx]->solution->scv<=best_solution->scv) {
-        #     best_solution->copy(ant[ant_idx]->solution);
-        # best_solution->hcv = 0;
-        # control.setCurrentCost(best_solution);
-        # }
+        @ants[ant_index].solution.calcule_soft_constraints_violations
+        if @ants[ant_index].solution.soft_constraints_violations <= best_solution.soft_constraints_violations
+          best_solution = @ants[ant_index].solution
+          best_solution.hard_constraints_violations = 0
+        end
       else
         @ants[ant_index].solution.calcule_hard_constraints_violations
         if @ants[ant_index].solution.hard_constraints_violations <= best_solution.hard_constraints_violations
           best_solution = @ants[ant_index].solution
-          # control.setCurrentCost(best_solution);
-          # best_solution->scv = 99999;
+          best_solution.soft_constraints_violations = 99999
         end
-
       end
 
       @ants[ant_index].solution = best_solution
 
       @problem.pheromone_min_max
       @problem = @ants[ant_index].deposite_pheromone
-
-      @problem
     end
+
+    @problem
   end
 
   def time_passed?(time_start)

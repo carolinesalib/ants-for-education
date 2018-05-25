@@ -30,7 +30,7 @@ class Ant
       @problem.timeslots_events[timeslot].push(event_index)
     end
 
-    @solution.assign_teachers
+    @problem = @solution.assign_teachers(@problem)
     @problem
   end
 
