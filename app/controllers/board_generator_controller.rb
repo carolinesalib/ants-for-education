@@ -72,7 +72,7 @@ class BoardGeneratorController < ApplicationController
 
         (1..days).each do |day|
           events_node = []
-          timeslot = period
+          timeslot = period - 1
 
           if day > 1
             timeslot += periods * (day - 1)
