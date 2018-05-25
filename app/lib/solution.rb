@@ -19,7 +19,7 @@ class Solution
         event = problem.events[event_index]
 
         unless event.teacher.present?
-          teacher = TeacherDiscipline.where(discipline_id: event.discipline_id).first.teacher
+          teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
           problem.events[event_index].teacher = teacher
         end
       end

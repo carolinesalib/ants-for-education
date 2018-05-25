@@ -54,11 +54,9 @@ teacher_data.each do |teacher_name|
   teachers << Teacher.find_or_create_by!(teacher_name)
 end
 
-disciplines.each do |discipline|
-  teachers.each do |teacher|
-    TeacherDiscipline.create(
-      discipline: discipline,
-      teacher: teacher
-    )
-  end
+disciplines.each_with_index do |discipline, index|
+  TeacherDiscipline.create(
+    discipline: discipline,
+    teacher: teachers[index]
+  )
 end
