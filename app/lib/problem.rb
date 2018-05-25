@@ -60,20 +60,15 @@ class Problem
 
   def initialize_events
     @events = []
-    timeslots = [*0..total_timeslots]
 
     @classrooms.each do |classroom|
+      timeslot = 0
       classroom.lessons.each do |lesson|
         lesson.credits.times do |event|
-          @events << Event.new(lesson, event)
+          @events << Event.new(lesson, event, timeslot)
+          timeslot += 1
         end
       end
-    end
-
-    # just to think about it
-    @events.each do |event|
-      timeslot = timeslots.sample
-      event.timeslot = timeslot
     end
   end
 

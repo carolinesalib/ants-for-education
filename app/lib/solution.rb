@@ -28,14 +28,6 @@ class Solution
     problem
   end
 
-  def generate_random_solution
-    @problem.total_events.times do |event_index|
-      @problem.events[event_index].timeslot = Random.rand(@problem.total_timeslots)
-    end
-
-    @problem
-  end
-
   def calcule_soft_constraints_violations
 
   end

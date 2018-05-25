@@ -1,9 +1,10 @@
 class Event
   attr_accessor :lesson, :credit, :teacher, :timeslot
 
-  def initialize(lesson, credit)
+  def initialize(lesson, credit, timeslot = nil)
     @lesson = lesson
     @credit = credit
+    @timeslot = timeslot
   end
 
   def ==(other)

@@ -18,7 +18,6 @@ class MMAS
     time_start = Time.now
     generate_ants
     best_solution = Solution.new(@problem)
-    @problem = best_solution.generate_random_solution
 
     NUMBER_OF_TRIES.times do
       @problem.reset_pheromone
