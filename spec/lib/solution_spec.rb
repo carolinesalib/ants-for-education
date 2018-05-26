@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Solution do
 
-  describe '#check_teacher_timeslot_hcv' do
+  describe '#duplicated_teacher_timeslot_hcv' do
     it 'should return 0 when not violate constrains' do
       credit = 1
       timeslot = 1
@@ -20,7 +20,7 @@ describe Solution do
       all_events << event_1
       all_events << event_2
 
-      expect(subject.check_teacher_timeslot_hcv(all_events, event_1)).to eq(0)
+      expect(subject.duplicated_teacher_timeslot_hcv(all_events, event_1)).to eq(0)
     end
 
     it 'should return 1 when violate one constrains' do
@@ -39,7 +39,7 @@ describe Solution do
       all_events << event_1
       all_events << event_2
 
-      expect(subject.check_teacher_timeslot_hcv(all_events, event_1)).to eq(1)
+      expect(subject.duplicated_teacher_timeslot_hcv(all_events, event_1)).to eq(1)
     end
 
     it 'should return 2 when violate two constrains' do
@@ -62,7 +62,7 @@ describe Solution do
       all_events << event_2
       all_events << event_3
 
-      expect(subject.check_teacher_timeslot_hcv(all_events, event_1)).to eq(2)
+      expect(subject.duplicated_teacher_timeslot_hcv(all_events, event_1)).to eq(2)
     end
   end
 end

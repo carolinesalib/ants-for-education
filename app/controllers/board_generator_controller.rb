@@ -36,7 +36,6 @@ class BoardGeneratorController < ApplicationController
 
           events = mmas.events.select { |event| event.lesson.classroom_id == classroom.id && event.timeslot == timeslot }
 
-          # não deveria ter mais de um evento para mesma turma no mesmo timeslot
           events.each do |event|
             teacher_name = event.teacher.name if event.teacher.present?
 
