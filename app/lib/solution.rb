@@ -2,7 +2,7 @@ class Solution
   attr_accessor :hard_constraints_violations, :soft_constraints_violations
   attr_reader :problem
 
-  def initialize(problem)
+  def initialize(problem = nil)
     @problem = problem
 
     @soft_constraints_violations = 9999
@@ -35,6 +35,7 @@ class Solution
   def calcule_hard_constraints_violations
     hard_constraints_violations = 0
 
+    # a teacher can not be in the same timeslot more than one time
     @problem.total_timeslots.times do |timeslot_index|
       teachers = []
       events = []
@@ -55,7 +56,7 @@ class Solution
   end
 
   def compute_feasibility
-    # a professor can not be in the same timeslot more than one time
+    # a teacher can not be in the same timeslot more than one time
     @problem.total_timeslots.times do |timeslot_index|
       teachers = []
       events = []
@@ -81,5 +82,38 @@ class Solution
     end
 
     true
+  end
+
+  def local_search(maxSteps = 10000000, ls_limit = 999999, prob1 = 1.0, prob2 = 1.0, prob3 = 0.0)
+    events = @problem.events.shuffle
+
+    feasible = compute_feasibility
+
+    unless feasible
+      @problem.events.each do |event|
+        current_hcv = event_hard_constraints_violations(event)
+
+      end
+    end
+  end
+
+  def event_hard_constraints_violations(event)
+    event_hcv = 0
+
+    event_hcv += check_teacher_timeslot_hcv(@problem.events, event)
+
+    event_hcv
+  end
+
+  def check_teacher_timeslot_hcv(all_events, current_event)
+    duplicated_teacher_timeslot = -1
+
+    all_events.each do |event|
+      if event.timeslot == current_event.timeslot && event.teacher.id == current_event.teacher.id
+        duplicated_teacher_timeslot += 1
+      end
+    end
+
+    duplicated_teacher_timeslot
   end
 end

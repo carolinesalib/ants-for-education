@@ -38,6 +38,8 @@ class MMAS
         end
       end
 
+      @problem = @ants[ant_index].solution.local_search
+
       feasible = @ants[ant_index].solution.compute_feasibility
 
       if feasible
