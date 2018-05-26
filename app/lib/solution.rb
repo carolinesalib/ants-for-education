@@ -65,7 +65,7 @@ class Solution
     feasible = compute_feasibility
     step = 0
 
-    until feasible || step == 10
+    until feasible || step == 2
       step += 1
       events_indexes.each do |event_index|
         event = @problem.events[event_index]
@@ -73,25 +73,41 @@ class Solution
 
         next if current_hcv.zero?
 
-        neighbour_problem = @problem
-        neighbour_event = neighbour_problem.events[event_index]
-
-        if neighbour_event.timeslot < @problem.total_timeslots - 1
-          neighbour_event.timeslot += 1
-        else
-          neighbour_event.timeslot = 0
-        end
-
-        neighbour_event_hcv = event_hard_constraints_violations(neighbour_problem, neighbour_event)
-
-        if neighbour_event_hcv < current_hcv
-          @problem.events[event_index].timeslot = neighbour_event.timeslot
-        end
+        @problem = move_one(@problem, event_index, current_hcv)
       end
       feasible = compute_feasibility
     end
 
     @problem
+  end
+
+  def move_one(problem, event_index, current_hcv)
+    neighbour_problem = problem
+    neighbour_event = neighbour_problem.events[event_index]
+    old_timeslot = neighbour_event.timeslot
+
+    if neighbour_event.timeslot < @problem.total_timeslots - 1
+      neighbour_event.timeslot += 1
+    else
+      neighbour_event.timeslot = 0
+    end
+
+    neighbour_event_hcv = event_hard_constraints_violations(neighbour_problem, neighbour_event)
+
+    if neighbour_event_hcv < current_hcv
+      neighbour_problem.events[event_index] = neighbour_event
+
+      neighbour_problem.timeslots_events[old_timeslot].delete(event_index)
+      neighbour_problem.timeslots_events[neighbour_event.timeslot].push(event_index)
+
+      return neighbour_problem
+    end
+
+    problem
+  end
+
+  def move_two
+
   end
 
   def event_hard_constraints_violations(problem, event)
