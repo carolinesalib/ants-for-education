@@ -35,7 +35,7 @@ class Ant
   end
 
   def deposite_pheromone
-    @problem.total_events.times do |event_index|
+    (0..@problem.total_events - 1).each do |event_index|
       timeslot = @problem.events[event_index].timeslot
       @problem.event_timeslot_pheromone[[event_index, timeslot]] += 1.0
     end

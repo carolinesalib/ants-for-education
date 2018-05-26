@@ -33,7 +33,6 @@ class Solution
 
     hard_constraints_violations += timeslots_without_events_hcv
 
-
     @hard_constraints_violations = hard_constraints_violations
   end
 
@@ -52,6 +51,11 @@ class Solution
       end
     end
 
+    # all timeslots must have an event for all classrooms
+    if timeslots_without_events_hcv > 0
+      return false
+    end
+
     true
   end
 
@@ -59,18 +63,20 @@ class Solution
     events_indexes = [*0..@problem.total_events - 1].shuffle
 
     feasible = compute_feasibility
+    step = 0
 
-    unless feasible
+    until feasible || step == 10
+      step += 1
       events_indexes.each do |event_index|
         event = @problem.events[event_index]
         current_hcv = event_hard_constraints_violations(@problem, event)
 
-        break if current_hcv.zero?
+        next if current_hcv.zero?
 
         neighbour_problem = @problem
         neighbour_event = neighbour_problem.events[event_index]
 
-        if neighbour_event.timeslot < @problem.total_timeslots
+        if neighbour_event.timeslot < @problem.total_timeslots - 1
           neighbour_event.timeslot += 1
         else
           neighbour_event.timeslot = 0
@@ -82,6 +88,7 @@ class Solution
           @problem.events[event_index].timeslot = neighbour_event.timeslot
         end
       end
+      feasible = compute_feasibility
     end
 
     @problem
@@ -99,10 +106,8 @@ class Solution
     timeslots_without_event = 0
 
     @problem.classrooms.each do |classroom|
-      (1..@problem.periods).each do |period|
-        (1..@problem.days).each do |day|
-          timeslot = period - 1
-          timeslot += @problem.periods * (day - 1) if day > 1
+      @problem.total_timeslots.times do |period|
+        (1..@problem.days).each do |timeslot|
 
           event = @problem.events.select do |event|
             event.lesson.classroom_id == classroom.id && event.timeslot == timeslot

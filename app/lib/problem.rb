@@ -21,7 +21,7 @@ class Problem
   end
 
   def total_timeslots
-    timeslots.size - 1
+    timeslots.size
   end
 
   def calc_maximum_pheromone(pheromone_evaporation)
@@ -67,6 +67,10 @@ class Problem
         lesson.credits.times do |event|
           @events << Event.new(lesson, event, timeslot)
           timeslot += 1
+
+          if timeslot > total_timeslots
+            timeslot = 0
+          end
         end
       end
     end
