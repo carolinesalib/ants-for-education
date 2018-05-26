@@ -113,7 +113,7 @@ class Solution
   def event_hard_constraints_violations(problem, event)
     event_hcv = 0
 
-    event_hcv += duplicated_teacher_timeslot_hcv(@problem.events, event)
+    event_hcv += duplicated_teacher_timeslot_hcv(problem.events, event)
 
     event_hcv
   end
