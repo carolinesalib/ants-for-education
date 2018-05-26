@@ -7,12 +7,17 @@ class BoardGeneratorController < ApplicationController
   end
 
   def test_page
+    time_start = Time.now
+
     periods = 5
     days = 5
     school = School.find_by(name: 'TCC Escola')
     classrooms = Classroom.where(school_id: school.id)
     mmas = MMAS.new(classrooms, days, periods)
     mmas = mmas.generate
+
+    time_finish = Time.now
+    @time_diff = time_finish - time_start
 
     @board = convert_mmas_to_board(mmas, classrooms, periods, days)
   end
