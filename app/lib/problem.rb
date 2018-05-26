@@ -17,7 +17,7 @@ class Problem
   end
 
   def total_events
-    events.size - 1
+    events.size
   end
 
   def total_timeslots

@@ -10,21 +10,13 @@ class Solution
   end
 
   def assign_teachers(problem)
-    @problem.total_timeslots.times do |timeslot|
-      @problem.total_events.times do |event|
-        event_index = @problem.timeslots_events[timeslot][event]
-
-        break if event_index.nil?
-
-        event = problem.events[event_index]
-
-        unless event.teacher.present?
-          teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
-          problem.events[event_index].teacher = teacher
-        end
+    problem.total_events.times do |event_index|
+      event = problem.events[event_index]
+      unless event.teacher.present?
+        teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
+        problem.events[event_index].teacher = teacher
       end
     end
-
     problem
   end
 
@@ -84,7 +76,7 @@ class Solution
     true
   end
 
-  def local_search(maxSteps = 10000000, ls_limit = 999999, prob1 = 1.0, prob2 = 1.0, prob3 = 0.0)
+  def local_search(maxSteps = 10_000_000, ls_limit = 999_999, prob1 = 1.0, prob2 = 1.0, prob3 = 0.0)
     events = @problem.events.shuffle
 
     feasible = compute_feasibility
