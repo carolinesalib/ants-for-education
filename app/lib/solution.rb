@@ -56,21 +56,38 @@ class Solution
   end
 
   def local_search(maxSteps = 10_000_000, ls_limit = 999_999, prob1 = 1.0, prob2 = 1.0, prob3 = 0.0)
-    events = @problem.events.shuffle
+    events_indexes = [*0..@problem.total_events - 1].shuffle
 
     feasible = compute_feasibility
 
     unless feasible
-      @problem.events.each do |event|
-        current_hcv = event_hard_constraints_violations(event)
+      events_indexes.each do |event_index|
+        event = @problem.events[event_index]
+        current_hcv = event_hard_constraints_violations(@problem, event)
 
+        break if current_hcv.zero?
+
+        neighbour_problem = @problem
+        neighbour_event = neighbour_problem.events[event_index]
+
+        if neighbour_event.timeslot < @problem.total_timeslots
+          neighbour_event.timeslot += 1
+        else
+          neighbour_event.timeslot = 0
+        end
+
+        neighbour_event_hcv = event_hard_constraints_violations(neighbour_problem, neighbour_event)
+
+        if neighbour_event_hcv < current_hcv
+          @problem.events[event_index].timeslot = neighbour_event.timeslot
+        end
       end
     end
 
     @problem
   end
 
-  def event_hard_constraints_violations(event)
+  def event_hard_constraints_violations(problem, event)
     event_hcv = 0
 
     event_hcv += duplicated_teacher_timeslot_hcv(@problem.events, event)
