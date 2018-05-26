@@ -18,6 +18,7 @@ class BoardGeneratorController < ApplicationController
 
     time_finish = Time.now
     @time_diff = time_finish - time_start
+    @empty_event = 0
 
     @board = convert_mmas_to_board(mmas, classrooms, periods, days)
   end
@@ -39,17 +40,22 @@ class BoardGeneratorController < ApplicationController
             timeslot += periods * (day - 1)
           end
 
-          events = mmas.events.select { |event| event.lesson.classroom_id == classroom.id && event.timeslot == timeslot }
+          event = mmas.events.select do |event|
+            event.lesson.classroom_id == classroom.id && event.timeslot == timeslot
+          end.first
 
-          events.each do |event|
-            teacher_name = event.teacher.name if event.teacher.present?
-
-            events_node << {
-              timeslot: event.timeslot,
-              discipline: event.lesson.discipline.name,
-              teacher: teacher_name
-            }
+          unless event.present?
+            @empty_event += 1
+            next
           end
+
+          teacher_name = event.teacher.name if event.teacher.present?
+
+          events_node << {
+            timeslot: event.timeslot,
+            discipline: event.lesson.discipline.name,
+            teacher: teacher_name
+          }
 
           days_node[day] = events_node
         end
