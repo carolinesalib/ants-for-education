@@ -84,7 +84,7 @@ class Solution
   def move_one(problem, event_index, current_hcv)
     neighbour_problem = problem
     neighbour_event = neighbour_problem.events[event_index]
-    old_timeslot = neighbour_event.timeslot
+    # old_timeslot = neighbour_event.timeslot
 
     if neighbour_event.timeslot < @problem.total_timeslots - 1
       neighbour_event.timeslot += 1
@@ -97,8 +97,8 @@ class Solution
     if neighbour_event_hcv < current_hcv
       neighbour_problem.events[event_index] = neighbour_event
 
-      neighbour_problem.timeslots_events[old_timeslot].delete(event_index)
-      neighbour_problem.timeslots_events[neighbour_event.timeslot].push(event_index)
+      # neighbour_problem.timeslots_events[old_timeslot].delete(event_index)
+      # neighbour_problem.timeslots_events[neighbour_event.timeslot].push(event_index)
 
       return neighbour_problem
     end
