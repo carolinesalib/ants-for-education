@@ -3,14 +3,15 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
-  def initialize(classrooms, days, periods, pheromone_evaporation = 0.02, minimal_pheromone = 0.5)
+  def initialize(classrooms, days, periods, pheromone_evaporation = 0.02, minimal_pheromone = 0.1, maximal_pheromone = 3.3)
     @classrooms = classrooms
     @days = days
     @periods = periods
     @minimal_pheromone = minimal_pheromone
+    @maximum_pheromone = maximal_pheromone
     @pheromone_evaporation = pheromone_evaporation
 
-    calc_maximum_pheromone(pheromone_evaporation)
+    # calc_maximum_pheromone(pheromone_evaporation, maximal_pheromone)
     initialize_timeslots
     initialize_events
     initialize_timeslots_events
@@ -24,8 +25,8 @@ class Problem
     timeslots.size
   end
 
-  def calc_maximum_pheromone(pheromone_evaporation)
-    @maximum_pheromone = 9
+  def calc_maximum_pheromone(pheromone_evaporation, maximal_pheromone)
+    @maximum_pheromone = maximal_pheromone
 
     if pheromone_evaporation < 1.0
       @maximum_pheromone = 1.0 / (1.0 - pheromone_evaporation)
@@ -65,7 +66,7 @@ class Problem
       timeslot = 0
       classroom.lessons.each do |lesson|
         lesson.credits.times do |event|
-          @events << Event.new(lesson, event, timeslot)
+          @events << Event.new(lesson, event)
           timeslot += 1
 
           if timeslot > total_timeslots

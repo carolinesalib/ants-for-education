@@ -140,6 +140,8 @@ class Solution
   def duplicated_teacher_timeslot_hcv(all_events, current_event)
     duplicated_teacher_timeslot = -1
 
+    return 0 unless current_event.timeslot
+
     all_events.each do |event|
       if event.timeslot == current_event.timeslot && event.teacher.id == current_event.teacher.id
         duplicated_teacher_timeslot += 1

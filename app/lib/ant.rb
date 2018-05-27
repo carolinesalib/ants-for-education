@@ -10,13 +10,13 @@ class Ant
     @problem = @solution.assign_teachers(@problem)
 
     @problem.total_events.times do |event_index|
-      range = @problem.sum_pheromone_for_event(event_index)
+      sum_pheromone_for_event = @problem.sum_pheromone_for_event(event_index)
 
       # choose a random number between 0.0 and sum of the pheromone level
       # for this event and current sum of heuristic information
       # random = solution->rg->next() * range
       # TODO: calc next value
-      random = Random.rand(range)
+      random = Random.rand(sum_pheromone_for_event)
 
       total = 0.0
       timeslot = nil
@@ -40,7 +40,7 @@ class Ant
   end
 
   def deposite_pheromone
-    (0..@problem.total_events - 1).each do |event_index|
+    @problem.total_events.times do |event_index|
       timeslot = @problem.events[event_index].timeslot
       @problem.event_timeslot_pheromone[[event_index, timeslot]] += 1.0
     end

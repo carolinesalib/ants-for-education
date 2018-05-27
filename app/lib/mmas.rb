@@ -2,10 +2,6 @@ class MMAS
   attr_reader :problem, :ants
 
   NUMBER_OF_ANTS = 10
-  ALPHA = 1
-  BETHA = 0
-  PHEROMONE_EVAPORATION = 1
-  MIN_PHEROMONE = 0
   NUMBER_OF_TRIES = 10
   TIME_LIMIT_SECONDS = 90
 
