@@ -9,17 +9,6 @@ class Solution
     @hard_constraints_violations = 9999
   end
 
-  def assign_teachers(problem)
-    problem.total_events.times do |event_index|
-      event = problem.events[event_index]
-      unless event.teacher.present?
-        teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
-        problem.events[event_index].teacher = teacher
-      end
-    end
-    problem
-  end
-
   def calcule_soft_constraints_violations
     # nothing here yet
   end

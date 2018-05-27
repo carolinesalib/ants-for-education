@@ -3,7 +3,7 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
-  def initialize(classrooms, days, periods, pheromone_evaporation = 0.3, minimal_pheromone = 0.0)
+  def initialize(classrooms, days, periods, pheromone_evaporation = 0.02, minimal_pheromone = 0.5)
     @classrooms = classrooms
     @days = days
     @periods = periods
@@ -14,6 +14,7 @@ class Problem
     initialize_timeslots
     initialize_events
     initialize_timeslots_events
+    assign_teachers
   end
 
   def total_events
@@ -124,6 +125,16 @@ class Problem
         if @event_timeslot_pheromone[[event_index, timeslot_index]] > @maximum_pheromone
           @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
         end
+      end
+    end
+  end
+
+  def assign_teachers
+    total_events.times do |event_index|
+      event = events[event_index]
+      unless event.teacher.present?
+        teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
+        events[event_index].teacher = teacher
       end
     end
   end
