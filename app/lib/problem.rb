@@ -14,7 +14,6 @@ class Problem
     initialize_timeslots
     initialize_events
     initialize_timeslots_events
-    assign_teachers
   end
 
   def total_events
@@ -125,16 +124,6 @@ class Problem
         if @event_timeslot_pheromone[[event_index, timeslot_index]] > @maximum_pheromone
           @event_timeslot_pheromone[[event_index, timeslot_index]] = @maximum_pheromone
         end
-      end
-    end
-  end
-
-  def assign_teachers
-    total_events.times do |event_index|
-      event = events[event_index]
-      unless event.teacher.present?
-        teacher = TeacherDiscipline.find_by(discipline_id: event.discipline_id).teacher
-        events[event_index].teacher = teacher
       end
     end
   end

@@ -7,6 +7,7 @@ class Ant
   def move!(problem)
     @problem = problem
     @solution = Solution.new(@problem)
+    @problem = @solution.assign_teachers(@problem)
 
     @problem.total_events.times do |event_index|
       range = @problem.sum_pheromone_for_event(event_index)
