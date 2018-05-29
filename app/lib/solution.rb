@@ -20,10 +20,6 @@ class Solution
     problem
   end
 
-  def calcule_soft_constraints_violations
-    # nothing here yet
-  end
-
   def calcule_hard_constraints_violations
     hard_constraints_violations = 0
 
@@ -59,46 +55,38 @@ class Solution
     true
   end
 
-  def local_search(maxSteps = 10_000_000, ls_limit = 999_999, prob1 = 1.0, prob2 = 1.0, prob3 = 0.0)
-    events_indexes = [*0..@problem.total_events - 1].shuffle
+  def local_search(problem)
+    events_indexes = [*0..problem.total_events - 1].shuffle
 
     feasible = compute_feasibility
     step = 0
 
-    until feasible || step == 2
+    until feasible || step == 10
       step += 1
+      # puts "Step #{step}"
       events_indexes.each do |event_index|
-        event = @problem.events[event_index]
-        current_hcv = event_hard_constraints_violations(@problem, event)
+        event = problem.events[event_index]
+        current_hcv = event_hard_constraints_violations(problem, event)
 
         next if current_hcv.zero?
 
-        @problem = move_one(@problem, event_index, current_hcv)
+        problem = move(problem, event_index, current_hcv)
       end
       feasible = compute_feasibility
     end
 
-    @problem
+    problem
   end
 
-  def move_one(problem, event_index, current_hcv)
+  def move(problem, event_index, current_hcv)
     neighbour_problem = problem
     neighbour_event = neighbour_problem.events[event_index]
-    # old_timeslot = neighbour_event.timeslot
 
-    if neighbour_event.timeslot < @problem.total_timeslots - 1
-      neighbour_event.timeslot += 1
-    else
-      neighbour_event.timeslot = 0
-    end
-
+    neighbour_event.timeslot = next_timeslot(neighbour_event)
     neighbour_event_hcv = event_hard_constraints_violations(neighbour_problem, neighbour_event)
 
     if neighbour_event_hcv < current_hcv
       neighbour_problem.events[event_index] = neighbour_event
-
-      # neighbour_problem.timeslots_events[old_timeslot].delete(event_index)
-      # neighbour_problem.timeslots_events[neighbour_event.timeslot].push(event_index)
 
       return neighbour_problem
     end
@@ -106,8 +94,31 @@ class Solution
     problem
   end
 
-  def move_two
+  def next_timeslot(event)
+    empty_timeslot_classroom = look_for_empty_timeslot(event.lesson.classroom)
+    return empty_timeslot_classroom unless empty_timeslot_classroom.nil?
 
+    if event.timeslot < @problem.total_timeslots - 1
+      event.timeslot += 1
+    else
+      event.timeslot = 0
+    end
+
+    event.timeslot
+  end
+
+  def look_for_empty_timeslot(classroom)
+    @problem.total_timeslots.times do |timeslot_index|
+      event = @problem.events.select do |event|
+        event.lesson.classroom_id == classroom.id && event.timeslot == timeslot_index
+      end.first
+
+      unless event.present?
+        return timeslot_index
+      end
+    end
+
+    nil
   end
 
   def event_hard_constraints_violations(problem, event)

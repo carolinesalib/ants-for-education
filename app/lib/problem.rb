@@ -3,15 +3,14 @@ class Problem
   attr_reader :timeslots, :events
   attr_accessor :timeslots_events, :event_timeslot_pheromone
 
-  def initialize(classrooms, days, periods, pheromone_evaporation = 0.02, minimal_pheromone = 0.1, maximal_pheromone = 3.3)
+  def initialize(classrooms, days, periods, pheromone_evaporation = 1.0, minimal_pheromone = 0.1, maximal_pheromone = 8)
     @classrooms = classrooms
     @days = days
     @periods = periods
     @minimal_pheromone = minimal_pheromone
-    @maximum_pheromone = maximal_pheromone
     @pheromone_evaporation = pheromone_evaporation
 
-    # calc_maximum_pheromone(pheromone_evaporation, maximal_pheromone)
+    calc_maximum_pheromone(pheromone_evaporation, maximal_pheromone)
     initialize_timeslots
     initialize_events
     initialize_timeslots_events

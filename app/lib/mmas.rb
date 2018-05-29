@@ -7,7 +7,6 @@ class MMAS
 
   def initialize(classrooms, days, periods)
     @problem = Problem.new(classrooms, days, periods)
-    @problem_before = @problem
   end
 
   def generate
@@ -34,17 +33,11 @@ class MMAS
         end
       end
 
-      @problem = @ants[ant_index].solution.local_search
+      @problem = @ants[ant_index].solution.local_search(@problem)
 
       feasible = @ants[ant_index].solution.compute_feasibility
 
-      if feasible
-        @ants[ant_index].solution.calcule_soft_constraints_violations
-        if @ants[ant_index].solution.soft_constraints_violations <= best_solution.soft_constraints_violations
-          best_solution = @ants[ant_index].solution
-          best_solution.hard_constraints_violations = 0
-        end
-      else
+      unless feasible
         @ants[ant_index].solution.calcule_hard_constraints_violations
         if @ants[ant_index].solution.hard_constraints_violations <= best_solution.hard_constraints_violations
           best_solution = @ants[ant_index].solution
