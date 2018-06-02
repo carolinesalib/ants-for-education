@@ -1,10 +1,10 @@
 class IeducarConfigurationsController < ApplicationController
   def edit
-    @configuration = IeducarConfiguration.find(params[:id])
+    @configuration = IeducarConfiguration.find_or_initialize_by(id: params[:id])
   end
 
   def update
-    @configuration = IeducarConfiguration.find(params[:id])
+    @configuration = IeducarConfiguration.find_or_initialize_by(id: params[:id])
     @configuration.attributes = permitted_attributes
 
     if @configuration.save
