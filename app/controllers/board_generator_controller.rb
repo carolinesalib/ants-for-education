@@ -1,5 +1,8 @@
 class BoardGeneratorController < ApplicationController
   def index
+    @schools = School.all
+    @courses = Course.all
+    @series = Serie.all
   end
 
   def build
