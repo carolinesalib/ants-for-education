@@ -9,9 +9,8 @@ module IeducarApi
     end
 
     def sync!
-      Lesson.delete_all
       Classroom.all.each do |classroom|
-        update_records api_fetch(args: { 'turma_id' => classroom.id } )
+        update_records api_fetch(args: { 'turma_id' => classroom.ieducar_code } )
       end
     end
 
@@ -22,11 +21,10 @@ module IeducarApi
       results.each do |result|
         classroom = Classroom.find_by(ieducar_code: result['cod_turma'].to_i)
         if classroom
-          Lesson.create!(
-            discipline: update_discipline(result['nome'], result['id']),
-            classroom: classroom,
-            course_load: result['carga_horaria']
-          )
+          discipline = update_discipline(result['nome'], result['id'])
+          lesson = Lesson.find_or_initialize_by(discipline_id: discipline.id, classroom_id: classroom.id)
+          lesson.course_load = result['carga_horaria']
+          lesson.save!
         end
       end
     end
@@ -34,7 +32,7 @@ module IeducarApi
     def update_discipline(name, ieducar_code)
       discipline = Discipline.find_by(ieducar_code: ieducar_code)
       unless discipline
-        discipline ||= Discipline.create(
+        discipline = Discipline.create(
           ieducar_code: ieducar_code,
           name: name
         )
