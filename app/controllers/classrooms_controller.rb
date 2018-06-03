@@ -22,4 +22,19 @@ class ClassroomsController < ApplicationController
       render nothing: true, status: :bad_request
     end
   end
+
+  def filtered_classrooms
+    school_id = params[:school_id]
+    course_id = params[:course_id]
+    serie_id = params[:serie_id]
+    classrooms = Classroom.filter(school_id, course_id, serie_id)
+
+    response = {}
+
+    if classrooms.present?
+      response = classrooms.to_json
+    end
+
+    render json: response
+  end
 end

@@ -1,4 +1,4 @@
-
+require 'rails_helper'
 
 describe Classroom do
   subject { create(:classroom) }
@@ -44,6 +44,19 @@ describe Classroom do
 
     it 'should return nil when interval_stop does not exist' do
       expect(subject.interval_stop_humanize).to be_nil
+    end
+  end
+
+  describe '.filter' do
+    it 'return classrooms with school, course and serie params' do
+      school = create(:school)
+      course = create(:course)
+      serie = create(:serie)
+
+      classrooms = create_list(:classroom, 3, school_id: school.id, course_id: course.id, serie_id: serie.id)
+      create_list(:classroom, 3)
+
+      expect(Classroom.filter(school.id, course.id, serie.id).size).to eq(3)
     end
   end
 end

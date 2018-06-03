@@ -20,4 +20,8 @@ class Classroom < ApplicationRecord
   def interval_stop_humanize
     interval_stop.strftime('%I:%M') if interval_stop
   end
+
+  def self.filter(school_id, course_id, serie_id)
+    Classroom.where(school_id: school_id, course_id: course_id, serie_id: serie_id)
+  end
 end

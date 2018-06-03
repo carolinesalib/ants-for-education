@@ -1,0 +1,32 @@
+$(function() {
+  <% self.class.include Rails.application.routes.url_helpers %>
+
+  var schoolField = $('#school_id');
+  var courseField = $('#course_id');
+  var serieField = $('#serie_id');
+  var classroomsField = $('#classrooms');
+
+  schoolField.change(function() { updateClassrooms() });
+  courseField.change(function() { updateClassrooms() });
+  serieField.change(function() { updateClassrooms() });
+
+  var updateClassrooms = function() {
+    if (schoolField.val() && courseField.val() && serieField.val()) {
+        $.get(
+          "<%= filtered_classrooms_classrooms_path %>",
+          {
+            school_id: schoolField.val(),
+            course_id: courseField.val(),
+            serie_id: serieField.val()
+          },
+          function(classrooms) {
+            classrooms.forEach(function(classroom) {
+              classroomsField.append($('<option></option>').val(classroom.id).html(classroom.name));
+            });
+          }
+        );
+    } else {
+      classroomsField.find('option').remove().end();
+    }
+  }
+});

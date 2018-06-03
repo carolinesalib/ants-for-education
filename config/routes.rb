@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   resources :classrooms, only: [:index, :show] do
     collection do
       post 'edit_disciplines'
+      get 'filtered_classrooms'
     end
   end
 
