@@ -6,7 +6,9 @@ class BoardGeneratorController < ApplicationController
   end
 
   def build
-    redirect_to board_generator_test_page_path
+    classrooms_ids = params[:classrooms]
+
+    redirect_to board_generator_test_page_path(classrooms_ids: classrooms_ids)
   end
 
   def test_page
@@ -14,8 +16,7 @@ class BoardGeneratorController < ApplicationController
 
     periods = 5
     days = 5
-    school = School.find_by(name: 'TCC Escola')
-    classrooms = Classroom.where(school_id: school.id)
+    classrooms = Classroom.where(id: params[:classrooms_ids])
     mmas = MMAS.new(classrooms, days, periods)
     mmas = mmas.generate
 
