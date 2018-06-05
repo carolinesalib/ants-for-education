@@ -8,6 +8,11 @@ class BoardGeneratorController < ApplicationController
   def build
     classrooms_ids = params[:classrooms]
 
+    unless classrooms_ids
+      flash[:info] = 'Nenhuma turma selecionada.'
+      redirect_to :back && return
+    end
+
     redirect_to board_generator_test_page_path(classrooms_ids: classrooms_ids)
   end
 
