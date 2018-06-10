@@ -12,7 +12,7 @@ class ClassScheduleController < ApplicationController
   private
 
   def set_class_schedule
-    @class_schedule = ClassSchedule.find(1)
+    @class_schedule = ClassSchedule.find_or_create_by(id: 1)
   end
 
   def permitted_attributes
