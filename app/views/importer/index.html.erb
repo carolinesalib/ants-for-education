@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+      <div class="x_title">
+        <h2>Importação do i-Educar</h2>
+
+        <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+        <% if flash[:error].present? %>
+          <p class="alert alert-error alert-dismissible fade in"><%= flash[:error] %></p>
+        <% end %>
+        <br>
+        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+          <a href="<%=importer_sync_path%>" class="btn btn-success">Importar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

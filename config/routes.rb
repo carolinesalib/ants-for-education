@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'importer/index'
+  get 'importer/sync'
+
   get 'board_generator/index'
   get 'board_generator/build'
   get 'board_generator/test_page'
