@@ -1,5 +1,5 @@
 # Create default schedule
-ClassSchedule.find_or_create_by!(name: 'Default')
+# ClassSchedule.find_or_create_by!(name: 'Default')
 
 # Create default test case
 school = School.find_or_create_by!(name: 'TCC Escola - Demonstração')
