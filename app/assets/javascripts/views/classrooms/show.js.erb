@@ -9,10 +9,10 @@ $(function() {
         credits: this.value
       },
       function() {
-        alert('Alterado com sucesso');
+        console.log('Alterado com sucesso');
       }
     ).fail(function() {
-        alert('Algo deu errado');
+        console.error('Algo deu errado');
     });
   });
 });
