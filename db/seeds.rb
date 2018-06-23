@@ -1,16 +1,13 @@
-# Create default i-educar configuration
-IeducarConfiguration.find_or_create_by!(url: 'http://comunidade.ieducar.com.br')
-
 # Create default schedule
 ClassSchedule.find_or_create_by!(name: 'Default')
 
 # Create default test case
-school = School.find_or_create_by!(name: 'TCC Escola')
+school = School.find_or_create_by!(name: 'TCC Escola - Demonstração')
 course = Course.find_or_create_by!(name: 'TCC Curso')
 serie = Serie.find_or_create_by!(name: 'TCC Série')
 classrooms = []
 
-3.times do |index|
+5.times do |index|
   classrooms << Classroom.find_or_create_by!(
     name: "TCC Turma #{index}",
     school_id: school.id,
@@ -37,7 +34,28 @@ classrooms.each do |classroom|
     Lesson.find_or_create_by!(
       discipline_id: discipline.id,
       classroom_id: classroom.id,
-      credits: 5
+      credits: 3
+    )
+  end
+end
+
+disciplines_data = []
+disciplines_data << { name: 'TCC INGLES' }
+disciplines_data << { name: 'TCC FILOSOFIA' }
+disciplines_data << { name: 'TCC INFORMATICA' }
+disciplines_data << { name: 'TCC ARTES' }
+disciplines_data << { name: 'TCC ESPANHOL' }
+
+disciplines_data.each do |discipline_name|
+  disciplines << Discipline.find_or_create_by!(discipline_name)
+end
+
+classrooms.each do |classroom|
+  disciplines.each do |discipline|
+    Lesson.find_or_create_by!(
+      discipline_id: discipline.id,
+      classroom_id: classroom.id,
+      credits: 2
     )
   end
 end
@@ -48,6 +66,11 @@ teacher_data << { name: 'JOAO' }
 teacher_data << { name: 'MARCOS' }
 teacher_data << { name: 'DAVID' }
 teacher_data << { name: 'CLAUDIA' }
+teacher_data << { name: 'JORGE' }
+teacher_data << { name: 'MATEUS' }
+teacher_data << { name: 'JOANA' }
+teacher_data << { name: 'CLARA' }
+teacher_data << { name: 'LUIZA' }
 
 teachers = []
 teacher_data.each do |teacher_name|
