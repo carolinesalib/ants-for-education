@@ -11,6 +11,7 @@ $(function() {
   serieField.change(function() { updateClassrooms() });
 
   var updateClassrooms = function() {
+    classroomsField.find('option').remove().end();
     if (schoolField.val() && courseField.val() && serieField.val()) {
         $.get(
           "<%= filtered_classrooms_classrooms_path %>",
@@ -25,8 +26,6 @@ $(function() {
             });
           }
         );
-    } else {
-      classroomsField.find('option').remove().end();
     }
   }
 
