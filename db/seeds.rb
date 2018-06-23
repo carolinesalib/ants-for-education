@@ -2,9 +2,9 @@
 # ClassSchedule.find_or_create_by!(name: 'Default')
 
 # Create default test case
-school = School.find_or_create_by!(name: 'TCC Escola - Demonstração')
-course = Course.find_or_create_by!(name: 'TCC Curso')
-serie = Serie.find_or_create_by!(name: 'TCC Série')
+school = School.find_or_create_by!(name: 'Escola TCC - Demonstração')
+course = Course.find_or_create_by!(name: 'Curso TCC')
+serie = Serie.find_or_create_by!(name: 'Série TCC')
 classrooms = []
 
 5.times do |index|
@@ -18,11 +18,11 @@ classrooms = []
 end
 
 disciplines_data = []
-disciplines_data << { name: 'TCC PORTUGUES' }
-disciplines_data << { name: 'TCC MATEMATICA' }
-disciplines_data << { name: 'TCC CIENCIAS' }
-disciplines_data << { name: 'TCC GEOGRAFIA' }
-disciplines_data << { name: 'TCC HISTORIA' }
+disciplines_data << { name: 'PORTUGUES TCC' }
+disciplines_data << { name: 'MATEMATICA TCC' }
+disciplines_data << { name: 'CIENCIAS TCC' }
+disciplines_data << { name: 'GEOGRAFIA TCC' }
+disciplines_data << { name: 'HISTORIA TCC' }
 
 disciplines = []
 disciplines_data.each do |discipline_name|
@@ -40,11 +40,11 @@ classrooms.each do |classroom|
 end
 
 disciplines_data = []
-disciplines_data << { name: 'TCC INGLES' }
-disciplines_data << { name: 'TCC FILOSOFIA' }
-disciplines_data << { name: 'TCC INFORMATICA' }
-disciplines_data << { name: 'TCC ARTES' }
-disciplines_data << { name: 'TCC ESPANHOL' }
+disciplines_data << { name: 'INGLES TCC' }
+disciplines_data << { name: 'FILOSOFIA TCC' }
+disciplines_data << { name: 'INFORMATICA TCC' }
+disciplines_data << { name: 'ARTES TCC' }
+disciplines_data << { name: 'ESPANHOL TCC' }
 
 disciplines_data.each do |discipline_name|
   disciplines << Discipline.find_or_create_by!(discipline_name)
@@ -61,16 +61,16 @@ classrooms.each do |classroom|
 end
 
 teacher_data = []
-teacher_data << { name: 'MARIA' }
-teacher_data << { name: 'JOAO' }
-teacher_data << { name: 'MARCOS' }
-teacher_data << { name: 'DAVID' }
-teacher_data << { name: 'CLAUDIA' }
-teacher_data << { name: 'JORGE' }
-teacher_data << { name: 'MATEUS' }
-teacher_data << { name: 'JOANA' }
-teacher_data << { name: 'CLARA' }
-teacher_data << { name: 'LUIZA' }
+teacher_data << { name: 'MARIA TCC' }
+teacher_data << { name: 'JOAO TCC' }
+teacher_data << { name: 'MARCOS TCC' }
+teacher_data << { name: 'DAVID TCC' }
+teacher_data << { name: 'CLAUDIA TCC' }
+teacher_data << { name: 'JORGE TCC' }
+teacher_data << { name: 'MATEUS TCC' }
+teacher_data << { name: 'JOANA TCC' }
+teacher_data << { name: 'CLARA TCC' }
+teacher_data << { name: 'LUIZA TCC' }
 
 teachers = []
 teacher_data.each do |teacher_name|
