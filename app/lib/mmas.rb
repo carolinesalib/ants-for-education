@@ -1,8 +1,8 @@
 class MMAS
   attr_reader :problem, :ants
 
-  NUMBER_OF_ANTS = 10
-  NUMBER_OF_TRIES = 10
+  NUMBER_OF_ANTS = 5
+  NUMBER_OF_TRIES = 5
   TIME_LIMIT_SECONDS = 90
 
   def initialize(classrooms, days, periods)
