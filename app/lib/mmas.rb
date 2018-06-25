@@ -1,5 +1,5 @@
 class MMAS
-  attr_reader :problem, :ants
+  attr_reader :problem, :antsbest_solution
 
   NUMBER_OF_ANTS = 5
   NUMBER_OF_TRIES = 5
@@ -50,6 +50,8 @@ class MMAS
       @problem.pheromone_min_max
       @problem = @ants[ant_index].deposite_pheromone
     end
+
+    @problem.hcv = best_solution.calcule_hard_constraints_violations
 
     @problem
   end

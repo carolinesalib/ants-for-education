@@ -1,7 +1,7 @@
 class Problem
   attr_reader :classrooms, :days, :periods
   attr_reader :timeslots, :events
-  attr_accessor :timeslots_events, :event_timeslot_pheromone
+  attr_accessor :timeslots_events, :event_timeslot_pheromone, :hcv
 
   def initialize(classrooms, days, periods, pheromone_evaporation = 1.0, minimal_pheromone = 0.1, maximal_pheromone = 8)
     @classrooms = classrooms

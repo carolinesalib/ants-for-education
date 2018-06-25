@@ -133,15 +133,12 @@ class Solution
     timeslots_without_event = 0
 
     @problem.classrooms.each do |classroom|
-      @problem.total_timeslots.times do |period|
-        (1..@problem.days).each do |timeslot|
-
-          event = @problem.events.select do |event|
-            event.lesson.classroom_id == classroom.id && event.timeslot == timeslot
-          end
-
-          timeslots_without_event += 1 unless event.present?
+      @problem.total_timeslots.times do |timeslot|
+        event = @problem.events.select do |event|
+          event.lesson.classroom_id == classroom.id && event.timeslot == timeslot
         end
+
+        timeslots_without_event += 1 unless event.present?
       end
     end
 

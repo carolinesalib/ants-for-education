@@ -28,6 +28,7 @@ class BoardGeneratorController < ApplicationController
     time_finish = Time.now
     @time_diff = time_finish - time_start
     @empty_event = 0
+    @hcv = mmas.hcv
 
     @board = convert_mmas_to_board(mmas, classrooms, periods, days)
   end
